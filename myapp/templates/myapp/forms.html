@@ -1,0 +1,121 @@
+{% load static %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+  .card-custom {
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+  }
+
+  .card-header-custom {
+     background: #004d40;
+    color: #fff;
+    padding: 1rem 1.5rem;
+    border-bottom: none;
+  }
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #dee2e6;
+  }
+
+  .form-section {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-label {
+    font-weight: 500;
+  }
+
+  .btn-submit {
+    padding: 0.6rem 1.5rem;
+    font-weight: 500;
+    border-radius: 8px;
+  }
+</style>
+
+<div class="container my-5">
+  <div class="card card-custom">
+    <div class="card-header card-header-custom">
+      <h3 class="h5 mb-0"><i class="bi bi-journal-plus me-2"></i>Submit Daily Activity Report</h3>
+    </div>
+    <div class="card-body p-4">
+      <form action="submit_activity.php" method="POST" enctype="multipart/form-data">
+
+        <!-- User Info -->
+        <div class="d-flex align-items-center gap-3 mb-4">
+          <img src="https://randomuser.me/api/portraits/men/7.jpg" alt="User" class="avatar">
+          <div>
+            <h5 class="mb-0 text-dark fw-semibold">John Doe</h5>
+            <small class="text-muted">Admin · Zamboanga City, Philippines</small>
+          </div>
+        </div>
+
+        <!-- Strategy Section -->
+        <div class="form-section">
+          <h6 class="mb-3 text-primary fw-semibold"><i class="bi bi-lightbulb me-2"></i>Strategy Information</h6>
+          <div class="mb-3">
+            <label for="strategy_name" class="form-label">Strategy Name</label>
+            <input type="text" class="form-control" id="strategy_name" name="strategy_name" placeholder="e.g. Youth Empowerment Program" required>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="date_from" class="form-label">Date From</label>
+              <input type="date" class="form-control" id="date_from" name="date_from" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="date_to" class="form-label">Date To</label>
+              <input type="date" class="form-control" id="date_to" name="date_to" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity Section -->
+        <div class="form-section">
+          <h6 class="mb-3 text-success fw-semibold"><i class="bi bi-calendar-event me-2"></i>Activity Details</h6>
+          <div class="mb-3">
+            <label for="activity_title" class="form-label">Activity Title</label>
+            <input type="text" class="form-control" id="activity_title" name="activity_title" placeholder="e.g. Barangay Cleanup Drive" required>
+          </div>
+          <div class="mb-3">
+            <label for="activity_description" class="form-label">Activity Description</label>
+            <textarea class="form-control" id="activity_description" name="activity_description" rows="4" placeholder="Describe the activity..." required></textarea>
+          </div>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="form-section">
+          <h6 class="mb-3 text-warning fw-semibold"><i class="bi bi-info-circle me-2"></i>Additional Information</h6>
+          <input type="text" class="form-control mb-2" id="funding_agency" name="funding_agency" placeholder="Funding Agency">
+          <input type="text" class="form-control mb-2" id="implementing_agency" name="implementing_agency" placeholder="Implementing Agency">
+          <input type="text" class="form-control mb-2" id="collaborating_agency" name="collaborating_agency" placeholder="Collaborating Agency">
+          <input type="text" class="form-control mb-2" id="sponsored_by" name="sponsored_by" placeholder="Sponsored By">
+          <input type="text" class="form-control mb-2" id="facilitated_by" name="facilitated_by" placeholder="Facilitated By">
+          <input type="text" class="form-control mb-2" id="participants" name="participants" placeholder="Participants (e.g. 50 Barangay Youth)">
+        </div>
+
+        <!-- Upload Section -->
+        <div class="form-section">
+          <h6 class="mb-3 text-danger fw-semibold"><i class="bi bi-upload me-2"></i>Upload Proof</h6>
+          <label for="proof_image" class="form-label">Proof of Activity (Image Upload)</label>
+          <input type="file" name="proof_image" id="proof_image" class="form-control" accept="image/*" required>
+        </div>
+
+        <!-- Submit -->
+        <div class="text-end">
+          <button type="submit" class="btn btn-dark btn-submit">
+            <i class="bi bi-send me-2"></i>Submit Report
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,182 @@
+
+    body {
+      background: white;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      color: #333;
+      height: 100vh;
+    }
+    #side_nav {
+      background: #004d40;
+      min-width: 250px;
+      max-width: 250px;
+      transition: all 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+       height: 100vh;
+    }
+    .content {
+      min-height: 100vh;
+      width: 100%;
+    }
+    hr.h-color {
+      background: #a7ffeb;
+      opacity: 0.5;
+      height: 1px;
+      margin: 1.5rem 0.5rem;
+    }
+    .sidebar ul {
+      padding: 0;
+      list-style: none;
+    }
+    .sidebar li {
+      margin-bottom: 5px;
+    }
+    .sidebar li a {
+      color: #e0f2f1;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .sidebar li a i {
+      margin-right: 15px;
+      font-size: 1.1em;
+    }
+    .sidebar li a:hover:not(.active) {
+      background-color: #00382e;
+      color: #fff;
+    }
+    .sidebar li.active {
+      background: #a7ffeb;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .sidebar li.active a,
+    .sidebar li.active a:hover {
+      color: #004d40;
+      font-weight: 600;
+    }
+    .sidebar .collapse .collapse-inner a {
+      padding-left: 55px;
+      color: #a7ffeb;
+      font-size: 0.95em;
+    }
+    .sidebar .collapse .collapse-inner a:hover {
+      background-color: #00382e;
+      color: #fff;
+      border-radius: 8px;
+    }
+    .sidebar .fa-angle-down,
+    .sidebar .fa-angle-up {
+      transition: transform 0.3s ease;
+    }
+    .sidebar .fa-angle-up {
+      transform: rotate(180deg);
+    }
+    .sidebar .bottom-list {
+      margin-top: auto;
+      padding-bottom: 20px;
+    }
+    .sidebar .header-box {
+      padding: 20px 20px 25px 20px;
+      border-bottom: 1px solid rgba(167, 255, 235, 0.2);
+      margin-bottom: 10px;
+    }
+    .sidebar .header-box img {
+      max-height: 45px;
+      width: auto;
+    }
+    .sidebar .header-box .logo-text {
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+    .navbar {
+      background-color: #ffffff !important;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      padding: 1rem 1.5rem;
+    }
+    .navbar-nav .nav-link {
+      color: #004d40 !important;
+      font-weight: 500;
+    }
+    .navbar-nav .nav-link.active {
+      color: #000000 !important;
+      background-color: #ffffff;
+      border-radius: 5px;
+      padding: 8px 15px;
+    }
+    @media(max-width: 767px) {
+      #side_nav {
+        margin-left: -250px;
+        position: fixed;
+        min-height: 100vh;
+        z-index: 1000;
+      }
+      #side_nav.active {
+        margin-left: 0;
+      }
+      .content {
+        transition: all 0.3s;
+      }
+      .content.active {
+        margin-left: 250px;
+      }
+      .navbar-brand img {
+        max-height: 35px;
+      }
+      .navbar-brand .logo-text {
+        font-size: 1rem;
+        margin-left: 8px;
+      }
+      .navbar-toggler {
+        border-color: transparent !important;
+      }
+      .navbar-toggler i {
+        color: #004d40;
+        font-size: 1.5rem;
+      }
+    }
+ 
+
+
+    .card-custom {
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      background-color: #ffffff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-header-custom {
+      background-color: #0f172a;
+      color: #f8fafc;
+      border-radius: 0.5rem 0.5rem 0 0;
+      padding: 1rem 1.5rem;
+    }
+
+    .btn-custom {
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+
+    .btn-custom:hover {
+      background-color: rgba(15, 23, 42, 0.9);
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #e2e8f0;
+    }
+
+    .form-control:focus {
+      box-shadow: 0 0 0 0.2rem rgba(15, 23, 42, 0.2);
+      border-color: #0f172a;
+    }
+ 
