@@ -1,0 +1,43 @@
+<nav class="sidebar p-3" id="side_nav">
+  <div class="header-box d-flex align-items-center mb-4">
+    <img src="{% static 'myapp/images/wesmaarrdec.png' %}" alt="Logo">
+    <span class="logo-text">WESMAARDEC</span>
+    <button class="btn d-md-none ms-auto text-white close-btn"><i class="fa fa-times"></i></button>
+  </div>
+
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a class="nav-link px-3 py-2 load-form" href="#" data-url="{% url 'manage_dashboard' %}">
+        <i class="fa fa-dashboard me-2"></i> Dashboard
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link px-3 py-2 d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#manageReportCollapse" role="button" aria-expanded="false" aria-controls="manageReportCollapse">
+        <span><i class="fa fa-clipboard me-2"></i>Manage Report</span>
+        <i class="fa fa-angle-down"></i>
+      </a>
+      <div class="collapse" id="manageReportCollapse">
+        <ul class="nav flex-column ms-3 mt-2">
+          <li><a class="nav-link load-form" href="#" data-url="{% url 'manage_records' %}">Manage Records</a></li>
+          <li><a class="nav-link load-form" href="#" data-url="{% url 'add_activity_form' %}">Add New Activity</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link px-3 py-2" href="#"><i class="fa fa-bar-chart me-2"></i> Reports</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link px-3 py-2" href="#"><i class="fa fa-cog me-2"></i> Settings</a>
+    </li>
+  </ul>
+
+  <hr class="text-white" />
+
+  <ul class="nav flex-column mt-auto">
+    <li class="nav-item">
+      <a class="nav-link px-3 py-2" href="#"><i class="fa fa-sign-out me-2"></i> Log Out</a>
+    </li>
+  </ul>
+</nav>

@@ -14,7 +14,7 @@
     :root {
       --primary-dark: hsl(222.2, 84%, 4.9%);
       --primary-light: hsl(210, 20%, 98%); 
-      --gray-light: hsl(214.3, 31.8%, 91.4%);
+      --gray-light: hsl(214.3, t31.8%, 91.4%);
       --gray-medium: hsl(210, 40%, 96.1%);
     }
 
@@ -119,43 +119,77 @@
 
       <div class="card-body">
         <div class="row">
-          <div class="col-md-3 mb-4">
-            <div class="p-3 border rounded bg-white shadow-sm">
-              <h6 class="fw-semibold mb-3" style="color: var(--primary-dark)">Filter & Sort</h6>
+       <div class="col-md-3 mb-4">
+  <div class="p-3 border rounded bg-white shadow-sm">
+    <h6 class="fw-semibold mb-3" style="color: var(--primary-dark)">Filter & Sort</h6>
 
-              <div class="mb-3">
-                <label for="strategyFilter" class="form-label">Strategy Name</label>
-                <select id="strategyFilter" class="form-select form-control-custom">
-                  <option value="">All</option>
-                  <option value="Youth Education Drive">Youth Education Drive</option>
-                  <option value="Community Health Program">Community Health Program</option>
-                  <option value="Environmental Cleanup">Environmental Cleanup</option>
-                </select>
-              </div>
+    <!-- Strategy Name -->
+    <div class="mb-3">
+      <label for="strategyFilter" class="form-label">Strategy Name</label>
+      <select id="strategyFilter" class="form-select form-control-custom">
+        <option value="">All</option>
+        <option value="Youth Education Drive">Youth Education Drive</option>
+        <option value="Community Health Program">Community Health Program</option>
+        <option value="Environmental Cleanup">Environmental Cleanup</option>
+      </select>
+    </div>
 
-              <div class="mb-3">
-                <label for="dateFrom" class="form-label">Date From</label>
-                <input type="date" id="dateFrom" class="form-control form-control-custom">
-              </div>
+    <!-- Date Filters -->
+    <div class="mb-3">
+      <label for="dateFrom" class="form-label">Date From</label>
+      <input type="date" id="dateFrom" class="form-control form-control-custom">
+    </div>
 
-              <div class="mb-3">
-                <label for="dateTo" class="form-label">Date To</label>
-                <input type="date" id="dateTo" class="form-control form-control-custom">
-              </div>
+    <div class="mb-3">
+      <label for="dateTo" class="form-label">Date To</label>
+      <input type="date" id="dateTo" class="form-control form-control-custom">
+    </div>
 
-              <div class="mb-3">
-                <label for="sortBy" class="form-label">Sort By</label>
-                <select id="sortBy" class="form-select form-control-custom">
-                  <option value="date-desc">Newest First</option>
-                  <option value="date-asc">Oldest First</option>
-                  <option value="title-asc">Activity Title (A-Z)</option>
-                  <option value="title-desc">Activity Title (Z-A)</option>
-                </select>
-              </div>
+    <!-- New Agency-Based Filters -->
+    <div class="mb-3">
+      <label for="funding_agency" class="form-label">Funding Agency</label>
+      <input type="text" class="form-control form-control-custom" id="funding_agency" name="funding_agency" placeholder="Funding Agency">
+    </div>
 
-              <button class="btn btn-primary-custom w-100" onclick="applyFiltersAndSort()">Apply Filters</button>
-            </div>
-          </div>
+    <div class="mb-3">
+      <label for="implementing_agency" class="form-label">Implementing Agency</label>
+      <input type="text" class="form-control form-control-custom" id="implementing_agency" name="implementing_agency" placeholder="Implementing Agency">
+    </div>
+
+    <div class="mb-3">
+      <label for="collaborating_agency" class="form-label">Collaborating Agency</label>
+      <input type="text" class="form-control form-control-custom" id="collaborating_agency" name="collaborating_agency" placeholder="Collaborating Agency">
+    </div>
+
+    <div class="mb-3">
+      <label for="sponsored_by" class="form-label">Sponsored By</label>
+      <input type="text" class="form-control form-control-custom" id="sponsored_by" name="sponsored_by" placeholder="Sponsored By">
+    </div>
+
+    <div class="mb-3">
+      <label for="facilitated_by" class="form-label">Facilitated By</label>
+      <input type="text" class="form-control form-control-custom" id="facilitated_by" name="facilitated_by" placeholder="Facilitated By">
+    </div>
+
+    <div class="mb-3">
+      <label for="participants" class="form-label">Participants</label>
+      <input type="text" class="form-control form-control-custom" id="participants" name="participants" placeholder="e.g. 50 Barangay Youth">
+    </div>
+
+    <!-- Sort By -->
+    <div class="mb-3">
+      <label for="sortBy" class="form-label">Sort By</label>
+      <select id="sortBy" class="form-select form-control-custom">
+        <option value="date-desc">Newest First</option>
+        <option value="date-asc">Oldest First</option>
+        <option value="title-asc">Activity Title (A-Z)</option>
+        <option value="title-desc">Activity Title (Z-A)</option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary-custom w-100" onclick="applyFiltersAndSort()">Apply Filters</button>
+  </div>
+</div>
 
           <div class="col-md-9">
             <div class="mb-3">
@@ -193,153 +227,7 @@
                       </div>
                     </td>
                   </tr>
-                  <tr>
-                    <td colspan="8" class="p-0 border-0">
-                      <div class="collapse" id="row1Details">
-                        <div class="p-4 bg-light border-top shadow-sm rounded-bottom expanded-details">
-                          <div class="row">
-                            <div class="col-md-8 mb-2">
-                              <p class="mb-1 text-muted fw-semibold">Description</p>
-                              <p class="mb-3">A two-day seminar for local youth on digital tools, covering topics such as online safety, basic coding, and digital literacy.</p>
-                              <p class="mb-1 text-muted fw-semibold">Created At</p>
-                              <p class="mb-0">2025-05-30</p>
-                            </div>
-                            <div class="col-md-4 text-center">
-                              <p class="mb-1 text-muted fw-semibold">Photos</p>
-                              <div class="d-flex justify-content-center gap-2">
-                                <div class="rounded bg-secondary d-flex align-items-center justify-content-center text-white" style="width: 80px; height: 60px;">Pic 1</div>
-                                <div class="rounded bg-secondary d-flex align-items-center justify-content-center text-white" style="width: 80px; height: 60px;">Pic 2</div>
-                                <div class="rounded bg-secondary d-flex align-items-center justify-content-center text-white" style="width: 80px; height: 60px;">Pic 3</div>
-                              </div>
-                              <small class="text-muted mt-1 d-block">[Photo placeholders]</small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
 
-                  <tr data-bs-toggle="collapse" data-bs-target="#row2Details" aria-expanded="false" class="accordion-toggle">
-                    <td><i class="bi bi-chevron-down"></i></td>
-                    <td>2</td>
-                    <td>Community Health Program</td>
-                    <td>2025-05-15</td>
-                    <td>2025-05-15</td>
-                    <td>Free Medical Check-up</td>
-                    <td>Dr. Smith</td>
-                    <td>
-                      <div class="d-flex gap-1">
-                        <button class="btn btn-sm btn-outline-info" title="View"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-outline-primary" title="Edit"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-sm btn-outline-danger" title="Delete"><i class="bi bi-trash"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="8" class="p-0 border-0">
-                      <div class="collapse" id="row2Details">
-                        <div class="p-4 bg-light border-top shadow-sm rounded-bottom expanded-details">
-                          <div class="row">
-                            <div class="col-md-8 mb-2">
-                              <p class="mb-1 text-muted fw-semibold">Description</p>
-                              <p class="mb-3">One-day free medical check-up event for the local community, including blood pressure, glucose, and general consultations.</p>
-                              <p class="mb-1 text-muted fw-semibold">Created At</p>
-                              <p class="mb-0">2025-05-10</p>
-                            </div>
-                            <div class="col-md-4 text-center">
-                              <p class="mb-1 text-muted fw-semibold">Photos</p>
-                              <div class="d-flex justify-content-center gap-2">
-                                <div class="rounded bg-secondary d-flex align-items-center justify-content-center text-white" style="width: 80px; height: 60px;">Pic 1</div>
-                                <div class="rounded bg-secondary d-flex align-items-center justify-content-center text-white" style="width: 80px; height: 60px;">Pic 2</div>
-                              </div>
-                              <small class="text-muted mt-1 d-block">[Photo placeholders]</small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr data-bs-toggle="collapse" data-bs-target="#row3Details" aria-expanded="false" class="accordion-toggle">
-                    <td><i class="bi bi-chevron-down"></i></td>
-                    <td>3</td>
-                    <td>Environmental Cleanup</td>
-                    <td>2025-04-20</td>
-                    <td>2025-04-20</td>
-                    <td>River Cleanup Drive</td>
-                    <td>Volunteer Group</td>
-                    <td>
-                      <div class="d-flex gap-1">
-                        <button class="btn btn-sm btn-outline-info" title="View"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-outline-primary" title="Edit"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-sm btn-outline-danger" title="Delete"><i class="bi bi-trash"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="8" class="p-0 border-0">
-                      <div class="collapse" id="row3Details">
-                        <div class="p-4 bg-light border-top shadow-sm rounded-bottom expanded-details">
-                          <div class="row">
-                            <div class="col-md-8 mb-2">
-                              <p class="mb-1 text-muted fw-semibold">Description</p>
-                              <p class="mb-3">Annual river cleanup effort involving community volunteers to remove waste and debris from the local river system.</p>
-                              <p class="mb-1 text-muted fw-semibold">Created At</p>
-                              <p class="mb-0">2025-04-18</p>
-                            </div>
-                            <div class="col-md-4 text-center">
-                              <p class="mb-1 text-muted fw-semibold">Photos</p>
-                              <div class="d-flex justify-content-center gap-2">
-                                <div class="rounded bg-secondary d-flex align-items-center justify-content-center text-white" style="width: 80px; height: 60px;">Pic 1</div>
-                              </div>
-                              <small class="text-muted mt-1 d-block">[Photo placeholders]</small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr data-bs-toggle="collapse" data-bs-target="#row4Details" aria-expanded="false" class="accordion-toggle">
-                    <td><i class="bi bi-chevron-down"></i></td>
-                    <td>4</td>
-                    <td>Youth Education Drive</td>
-                    <td>2025-03-10</td>
-                    <td>2025-03-12</td>
-                    <td>Coding Workshop for Beginners</td>
-                    <td>Tech Club</td>
-                    <td>
-                      <div class="d-flex gap-1">
-                        <button class="btn btn-sm btn-outline-info" title="View"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-outline-primary" title="Edit"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-sm btn-outline-danger" title="Delete"><i class="bi bi-trash"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="8" class="p-0 border-0">
-                      <div class="collapse" id="row4Details">
-                        <div class="p-4 bg-light border-top shadow-sm rounded-bottom expanded-details">
-                          <div class="row">
-                            <div class="col-md-8 mb-2">
-                              <p class="mb-1 text-muted fw-semibold">Description</p>
-                              <p class="mb-3">A three-day intensive workshop introducing fundamental coding concepts to young enthusiasts.</p>
-                              <p class="mb-1 text-muted fw-semibold">Created At</p>
-                              <p class="mb-0">2025-03-08</p>
-                            </div>
-                            <div class="col-md-4 text-center">
-                              <p class="mb-1 text-muted fw-semibold">Photos</p>
-                              <div class="d-flex justify-content-center gap-2">
-                                <div class="rounded bg-secondary d-flex align-items-center justify-content-center text-white" style="width: 80px; height: 60px;">Pic 1</div>
-                                <div class="rounded bg-secondary d-flex align-items-center justify-content-center text-white" style="width: 80px; height: 60px;">Pic 2</div>
-                                <div class="rounded bg-secondary d-flex align-items-center justify-content-center text-white" style="width: 80px; height: 60px;">Pic 3</div>
-                              </div>
-                              <small class="text-muted mt-1 d-block">[Photo placeholders]</small>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
             </div>
@@ -510,3 +398,4 @@
   </script>
 </body>
 </html>
+

@@ -142,8 +142,6 @@
       }
     }
  
-
-
     .card-custom {
       border: 1px solid #e2e8f0;
       border-radius: 0.5rem;
@@ -180,3 +178,21 @@
       border-color: #0f172a;
     }
  
+
+.dash-card {
+  border-radius: 15px;
+  padding: 20px;
+  background: #fff;
+  transition: transform 0.2s ease
+ .dash-card:hover {
+  transform: scale(1.02);
+}
+.card-title {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 4px;
+}
+
+
+
+  

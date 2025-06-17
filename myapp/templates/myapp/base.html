@@ -1,0 +1,18 @@
+<head>
+  <link rel="stylesheet" href="{% static 'myapp/css/sidebar.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <div class="main-container">
+    {% include 'myapp/partials/sidebar.html' %}
+    <div class="content">
+      {% include 'myapp/partials/navbar.html' %}
+      <main class="p-4" id="dashboard-content">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </div>
+
+  <script src="{% static 'myapp/js/sidebar.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>

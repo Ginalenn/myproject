@@ -1,20 +1,17 @@
 from django.shortcuts import render
+from django.http import HttpRequest
 
-def index(request):
+def dashboard_view(request: HttpRequest):
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request, 'myapp/dashboard/dashboard.html')
+    return render(request, 'myapp/index.html')  # fallback for direct access
+
+def manage_records_view(request):
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request, 'myapp/tables/table.html')
     return render(request, 'myapp/index.html')
 
-def forms(request):
-    return render(request, 'myapp/forms.html')
-
-def table(request):
-    return render(request, 'myapp/table.html')
-
-def add_activity_form(request):
-    return render(request, 'myapp/forms.html')
-
-def manage_records(request): 
-    return render(request, 'myapp/table.html' )
-
-
-def dashboard(request): 
-    return render(request, 'myapp/dashboard.html' )
+def add_activity_form_view(request):
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request, 'myapp/forms/forms.html')
+    return render(request, 'myapp/index.html')
