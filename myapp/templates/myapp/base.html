@@ -1,18 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="{% static 'myapp/css/sidebar.css' %}">
-  {% block extra_css %}{% endblock %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}WESMAARDEC{% endblock %}</title>
+
+  <!-- Bootstrap + FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
 </head>
 <body>
-  <div class="main-container">
+  <div class="d-flex">
     {% include 'myapp/partials/sidebar.html' %}
-    <div class="content">
-      {% include 'myapp/partials/navbar.html' %}
-      <main class="p-4" id="dashboard-content">
-        {% block content %}{% endblock %}
-      </main>
+
+    <div class="flex-grow-1" style="margin-left: 250px;" id="dashboard-content">
+      {% block content %}
+      <!-- Page-specific content goes here -->
+      {% endblock %}
     </div>
   </div>
 
-  <script src="{% static 'myapp/js/sidebar.js' %}"></script>
-  {% block extra_js %}{% endblock %}
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('.load-form').click(function (e) {
+        e.preventDefault();
+        const url = $(this).data('url');
+        $('#dashboard-content').load(url);
+      });
+    });
+  </script>
 </body>
+</html>

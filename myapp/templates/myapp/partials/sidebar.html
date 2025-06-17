@@ -1,43 +1,36 @@
-<nav class="sidebar p-3" id="side_nav">
-  <div class="header-box d-flex align-items-center mb-4">
-    <img src="{% static 'myapp/images/wesmaarrdec.png' %}" alt="Logo">
-    <span class="logo-text">WESMAARDEC</span>
-    <button class="btn d-md-none ms-auto text-white close-btn"><i class="fa fa-times"></i></button>
+{% load static %}
+
+<nav class="sidebar p-3 bg-dark text-white vh-100 position-fixed" id="side_nav" style="width: 250px;">
+  <!-- Sidebar Header -->
+  <div class="header-box d-flex align-items-center justify-content-between mb-4">
+    <div class="d-flex align-items-center">
+      <img src="{% static 'myapp/images/wesmaarrdec.png' %}" alt="Logo" class="me-2" style="height: 40px;">
+      <span class="fs-5 fw-semibold">WESMAARDEC</span>
+    </div>
+    <button class="btn d-md-none text-white close-btn"><i class="fa fa-times"></i></button>
   </div>
 
-  <ul class="nav flex-column">
+  <!-- Navigation -->
+  <ul class="nav flex-column gap-1">
     <li class="nav-item">
-      <a class="nav-link px-3 py-2 load-form" href="#" data-url="{% url 'manage_dashboard' %}">
+      <a class="nav-link text-white px-3 py-2 rounded load-form" href="#" data-url="{% url 'manage_dashboard' %}">
         <i class="fa fa-dashboard me-2"></i> Dashboard
       </a>
     </li>
-
     <li class="nav-item">
-      <a class="nav-link px-3 py-2 d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#manageReportCollapse" role="button" aria-expanded="false" aria-controls="manageReportCollapse">
-        <span><i class="fa fa-clipboard me-2"></i>Manage Report</span>
-        <i class="fa fa-angle-down"></i>
+      <a class="nav-link text-white px-3 py-2 rounded load-form" href="#" data-url="{% url 'manage_records' %}">
+        <i class="fa fa-folder-open me-2"></i> Manage Records
       </a>
-      <div class="collapse" id="manageReportCollapse">
-        <ul class="nav flex-column ms-3 mt-2">
-          <li><a class="nav-link load-form" href="#" data-url="{% url 'manage_records' %}">Manage Records</a></li>
-          <li><a class="nav-link load-form" href="#" data-url="{% url 'add_activity_form' %}">Add New Activity</a></li>
-        </ul>
-      </div>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link px-3 py-2" href="#"><i class="fa fa-bar-chart me-2"></i> Reports</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link px-3 py-2" href="#"><i class="fa fa-cog me-2"></i> Settings</a>
+      <a class="nav-link text-white px-3 py-2 rounded load-form" href="#" data-url="{% url 'add_activity_form' %}">
+        <i class="fa fa-plus me-2"></i> Add New Records
+      </a>
     </li>
-  </ul>
-
-  <hr class="text-white" />
-
-  <ul class="nav flex-column mt-auto">
     <li class="nav-item">
-      <a class="nav-link px-3 py-2" href="#"><i class="fa fa-sign-out me-2"></i> Log Out</a>
+      <a class="nav-link text-white px-3 py-2 rounded" href="#">
+        <i class="fa fa-bar-chart me-2"></i> Reports
+      </a>
     </li>
   </ul>
 </nav>
