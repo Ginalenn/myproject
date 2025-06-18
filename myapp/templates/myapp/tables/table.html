@@ -1,310 +1,38 @@
+{% load static %}
 
-{% include 'myapp/partials/navbar.html' %}
-{% block content %}
-
-  <div class="container py-4">
-    <div class="card card-custom shadow-sm">
-      <div class="card-header d-flex justify-content-between align-items-center bg-light">
-        <h2 class="h5 m-0" style="color: var(--primary-dark)">Daily Activity Reports</h2>
-        <div class="d-flex gap-2">
-          <a href="/html/activity.html" class="btn btn-primary btn-primary-custom d-flex align-items-center">
-            <i class="material-icons me-1">add_circle</i> Add Activity
-          </a>
-          <form id="importForm" enctype="multipart/form-data" class="d-flex align-items-center gap-2">
-            <input type="file" id="excelFile" class="d-none" accept=".xlsx, .xls">
-            <button type="button" id="importButton" class="btn btn-outline-custom d-flex align-items-center">
-                <i class="material-icons me-1">file_upload</i> Import Excel
-            </button>
-          </form>
-          <button id="excelExport" class="btn btn-outline-secondary btn-outline-custom d-flex align-items-center">
-            <i class="material-icons me-1">file_download</i> Export to Excel
-          </button>
+<div class="container-fluid py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-light d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <h2 class="h5 mb-0 fw-bold text-dark">Manage Activity Records</h2>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="#" class="btn btn-sm btn-primary d-flex align-items-center"><i class="fa-solid fa-plus me-2"></i>Add Activity</a>
+                <button type="button" class="btn btn-sm btn-outline-success d-flex align-items-center"><i class="fa-solid fa-file-import me-2"></i>Import</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center"><i class="fa-solid fa-file-export me-2"></i>Export</button>
+            </div>
         </div>
-      </div>
 
-      <div class="card-body">
-        <div class="row">
-       <div class="col-md-3 mb-4">
-  <div class="p-3 border rounded bg-white shadow-sm">
-    <h6 class="fw-semibold mb-3" style="color: var(--primary-dark)">Filter & Sort</h6>
+        <div class="card-body">
+            <div class="row g-4">
+                <!-- Filter Sidebar -->
+                <div class="col-lg-3">
+                    <!-- CORRECTED PATH: Removed 'tables/' from the path -->
+                    {% include 'myapp/partials/filters.html' %}
+                </div>
 
-    <!-- Strategy Name -->
-    <div class="mb-3">
-      <label for="strategyFilter" class="form-label">Strategy Name</label>
-      <select id="strategyFilter" class="form-select form-control-custom">
-        <option value="">All</option>
-        <option value="Youth Education Drive">Youth Education Drive</option>
-        <option value="Community Health Program">Community Health Program</option>
-        <option value="Environmental Cleanup">Environmental Cleanup</option>
-      </select>
+                <!-- Table Content -->
+                <div class="col-lg-9">
+                    <input type="text" id="customSearchBox" placeholder="Search by Title, ID, or Description..." class="form-control mb-3" name="search" />
+                    
+                    <!-- This wrapper will be updated by AJAX -->
+                    <div id="table-content-wrapper">
+                        <!-- CORRECTED PATH: Removed 'tables/' from the path -->
+                        {% include 'myapp/partials/table_content.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- Date Filters -->
-    <div class="mb-3">
-      <label for="dateFrom" class="form-label">Date From</label>
-      <input type="date" id="dateFrom" class="form-control form-control-custom">
-    </div>
-
-    <div class="mb-3">
-      <label for="dateTo" class="form-label">Date To</label>
-      <input type="date" id="dateTo" class="form-control form-control-custom">
-    </div>
-
-    <!-- New Agency-Based Filters -->
-    <div class="mb-3">
-      <label for="funding_agency" class="form-label">Funding Agency</label>
-      <input type="text" class="form-control form-control-custom" id="funding_agency" name="funding_agency" placeholder="Funding Agency">
-    </div>
-
-    <div class="mb-3">
-      <label for="implementing_agency" class="form-label">Implementing Agency</label>
-      <input type="text" class="form-control form-control-custom" id="implementing_agency" name="implementing_agency" placeholder="Implementing Agency">
-    </div>
-
-    <div class="mb-3">
-      <label for="collaborating_agency" class="form-label">Collaborating Agency</label>
-      <input type="text" class="form-control form-control-custom" id="collaborating_agency" name="collaborating_agency" placeholder="Collaborating Agency">
-    </div>
-
-    <div class="mb-3">
-      <label for="sponsored_by" class="form-label">Sponsored By</label>
-      <input type="text" class="form-control form-control-custom" id="sponsored_by" name="sponsored_by" placeholder="Sponsored By">
-    </div>
-
-    <div class="mb-3">
-      <label for="facilitated_by" class="form-label">Facilitated By</label>
-      <input type="text" class="form-control form-control-custom" id="facilitated_by" name="facilitated_by" placeholder="Facilitated By">
-    </div>
-
-    <div class="mb-3">
-      <label for="participants" class="form-label">Participants</label>
-      <input type="text" class="form-control form-control-custom" id="participants" name="participants" placeholder="e.g. 50 Barangay Youth">
-    </div>
-
-    <!-- Sort By -->
-    <div class="mb-3">
-      <label for="sortBy" class="form-label">Sort By</label>
-      <select id="sortBy" class="form-select form-control-custom">
-        <option value="date-desc">Newest First</option>
-        <option value="date-asc">Oldest First</option>
-        <option value="title-asc">Activity Title (A-Z)</option>
-        <option value="title-desc">Activity Title (Z-A)</option>
-      </select>
-    </div>
-
-    <button class="btn btn-primary-custom w-100" onclick="applyFiltersAndSort()">Apply Filters</button>
-  </div>
 </div>
 
-          <div class="col-md-9">
-            <div class="mb-3">
-              <input type="text" id="customSearchBox" placeholder="Search activities by title, ID, or description..." class="form-control form-control-custom" />
-            </div>
-
-            <div class="table-responsive">
-              <table class="table table-hover" id="activityTable">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>ID</th>
-                    <th>Strategy Name</th>
-                    <th>Date From</th>
-                    <th>Date To</th>
-                    <th>Activity Title</th>
-                    <th>Created By</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr data-bs-toggle="collapse" data-bs-target="#row1Details" aria-expanded="false" class="accordion-toggle">
-                    <td><i class="bi bi-chevron-down"></i></td>
-                    <td>1</td>
-                    <td>Youth Education Drive</td>
-                    <td>2025-06-01</td>
-                    <td>2025-06-02</td>
-                    <td>Seminar on Digital Skills</td>
-                    <td>Admin</td>
-                    <td>
-                      <div class="d-flex gap-1">
-                        <button class="btn btn-sm btn-outline-info" title="View"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-outline-primary" title="Edit"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-sm btn-outline-danger" title="Delete"><i class="bi bi-trash"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-
-                </tbody>
-              </table>
-            </div>
-
-            <nav aria-label="Activity table pagination">
-              <ul class="pagination justify-content-center mt-4">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Next</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {% endblock %}
-
-
-{% block scripts %}
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const activityTableBody = document.querySelector('#activityTable tbody');
-      const searchBox = document.getElementById('customSearchBox');
-      const sortBySelect = document.getElementById('sortBy');
-      const strategyFilterSelect = document.getElementById('strategyFilter');
-      const dateFromInput = document.getElementById('dateFrom');
-      const dateToInput = document.getElementById('dateTo');
-      const importButton = document.getElementById('importButton');
-      const excelFile = document.getElementById('excelFile');
-
-      // Store initial rows to easily reset filters/sort
-      const initialRows = Array.from(activityTableBody.children);
-
-      // Function to apply filters and sorting
-      function applyFiltersAndSort() {
-        let rows = Array.from(initialRows).filter((row, index) => index % 2 === 0); // Get only the main activity rows
-
-        const strategy = strategyFilterSelect.value.toLowerCase();
-        const dateFrom = dateFromInput.value;
-        const dateTo = dateToInput.value;
-        const searchTerm = searchBox.value.toLowerCase();
-
-        rows = rows.filter(row => {
-          const strategyText = row.cells[2].textContent.toLowerCase();
-          const dateText = row.cells[3].textContent; // Date From column
-          const activityTitle = row.cells[5].textContent.toLowerCase();
-          const activityId = row.cells[1].textContent.toLowerCase();
-          // Assuming description is in the next row's collapse details
-          const descriptionRow = row.nextElementSibling;
-          const descriptionText = descriptionRow ? descriptionRow.querySelector('p:nth-of-type(2)').textContent.toLowerCase() : '';
-
-          let show = true;
-
-          // Apply strategy filter
-          if (strategy && !strategyText.includes(strategy)) {
-            show = false;
-          }
-
-          // Apply date filters
-          if (dateFrom && dateText < dateFrom) {
-            show = false;
-          }
-          if (dateTo && dateText > dateTo) {
-            show = false;
-          }
-
-          // Apply search filter (checks ID, Title, Strategy, and Description)
-          if (searchTerm && !(activityId.includes(searchTerm) || activityTitle.includes(searchTerm) || strategyText.includes(searchTerm) || descriptionText.includes(searchTerm))) {
-            show = false;
-          }
-
-          return show;
-        });
-
-        // Apply sorting
-        const sortBy = sortBySelect.value;
-        rows.sort((a, b) => {
-          const dateA = a.cells[3].textContent; // Date From
-          const dateB = b.cells[3].textContent; // Date From
-          const titleA = a.cells[5].textContent.toLowerCase();
-          const titleB = b.cells[5].textContent.toLowerCase();
-
-          if (sortBy === 'date-asc') {
-            return new Date(dateA) - new Date(dateB);
-          } else if (sortBy === 'date-desc') {
-            return new Date(dateB) - new Date(dateA);
-          } else if (sortBy === 'title-asc') {
-            return titleA.localeCompare(titleB);
-          } else if (sortBy === 'title-desc') {
-            return titleB.localeCompare(titleA);
-          }
-          return 0;
-        });
-
-        // Clear existing table body
-        activityTableBody.innerHTML = '';
-
-        // Append sorted and filtered rows (and their detail rows)
-        rows.forEach(row => {
-          activityTableBody.appendChild(row);
-          activityTableBody.appendChild(row.nextElementSibling); // Append the corresponding detail row
-        });
-
-        // If no rows are found, display a message (optional)
-        if (rows.length === 0) {
-            const noResultsRow = document.createElement('tr');
-            noResultsRow.innerHTML = `<td colspan="8" class="text-center py-3 text-muted">No activities found matching your criteria.</td>`;
-            activityTableBody.appendChild(noResultsRow);
-        }
-      }
-
-      // Event Listeners for Filters and Search
-      document.querySelector('.btn-primary-custom.w-100').addEventListener('click', applyFiltersAndSort); // Apply button
-      sortBySelect.addEventListener('change', applyFiltersAndSort);
-      searchBox.addEventListener('keyup', applyFiltersAndSort); // Real-time search
-
-      // Handle Excel Import button click
-      importButton.addEventListener('click', () => {
-          excelFile.click(); // Trigger the hidden file input click
-      });
-
-      // Handle file selection for import (for demonstration)
-      excelFile.addEventListener('change', (event) => {
-          if (event.target.files.length > 0) {
-              alert(`Selected file for import: ${event.target.files[0].name}. (Import functionality not implemented)`);
-              // In a real application, you'd send this file to a server
-          }
-      });
-
-      // Handle Excel Export button click (for demonstration)
-      document.getElementById('excelExport').addEventListener('click', () => {
-          alert('Exporting data to Excel... (Functionality not implemented)');
-          // In a real application, you'd trigger a download of an Excel file
-      });
-
-      // Add event listeners for the new action buttons (delegation for dynamic content)
-      activityTableBody.addEventListener('click', (event) => {
-        const target = event.target.closest('button');
-        if (!target) return; // Not a button
-
-        const row = target.closest('tr');
-        if (!row) return; // Not inside a table row
-
-        const activityId = row.cells[1].textContent; // Assuming ID is in the second cell
-
-        if (target.title === 'View') {
-          alert(`Viewing activity with ID: ${activityId}. (Navigation/Modal functionality would go here)`);
-          // You would typically navigate to a detailed view page or open a modal
-        } else if (target.title === 'Edit') {
-          alert(`Editing activity with ID: ${activityId}. (Navigation to edit form would go here)`);
-          // You would typically navigate to an edit form pre-filled with data
-        } else if (target.title === 'Delete') {
-          if (confirm(`Are you sure you want to delete activity with ID: ${activityId}?`)) {
-            alert(`Deleting activity with ID: ${activityId}. (Actual deletion logic would go here)`);
-            // In a real application, you'd send a delete request to the server
-            // and then remove the rows from the DOM:
-            // row.nextElementSibling.remove(); // Remove detail row
-            // row.remove(); // Remove main row
-            applyFiltersAndSort(); // Re-apply filters/sort to update table if needed
-          }
-        }
-      });
-    });
-  </script>
-
- {% endblock %}
+<!-- This static file path is correct based on your `tree` output -->
+<script src="{% static 'myapp/js/manage_records.js' %}"></script>

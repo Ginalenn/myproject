@@ -165,112 +165,59 @@
 }
 
 
-    .card-custom {
-      border: 1px solid #e2e8f0;
-      border-radius: 0.5rem;
-      background-color: #ffffff;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    }
 
-    .card-header-custom {
-      background-color: #0f172a;
-      color: #f8fafc;
-      border-radius: 0.5rem 0.5rem 0 0;
-      padding: 1rem 1.5rem;
-    }
-
-    .btn-custom {
-      background-color: #0f172a;
-      color: #f8fafc;
-    }
-
-    .btn-custom:hover {
-      background-color: rgba(15, 23, 42, 0.9);
-    }
-
-    .avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #e2e8f0;
-    }
-
-    .form-control:focus {
-      box-shadow: 0 0 0 0.2rem rgba(15, 23, 42, 0.2);
-      border-color: #0f172a;
-    }
- 
-
-.dash-card {
-  border-radius: 15px;
-  padding: 20px;
-  background: #fff;
-  transition: transform 0.2s ease
- .dash-card:hover {
-  transform: scale(1.02);
-}
-.card-title {
-  font-size: 14px;
-  color: #6c757d;
-  margin-bottom: 4px;
-}
 
 
 
   
- 
-    .card-custom {
-      border: 1px solid #e2e8f0;
-      border-radius: 0.5rem;
-      background-color: #ffffff;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    }
-
-    .card-header-custom {
-      background-color: #0f172a;
-      color: #f8fafc;
-      border-radius: 0.5rem 0.5rem 0 0;
-      padding: 1rem 1.5rem;
-    }
-
-    .btn-custom {
-      background-color: #0f172a;
-      color: #f8fafc;
-    }
-
-    .btn-custom:hover {
-      background-color: rgba(15, 23, 42, 0.9);
-    }
-
-    .avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #e2e8f0;
-    }
-
-    .form-control:focus {
-      box-shadow: 0 0 0 0.2rem rgba(15, 23, 42, 0.2);
-      border-color: #0f172a;
-    }
- 
-
 .dash-card {
-  border-radius: 15px;
-  padding: 20px;
-  background: #fff;
-  transition: transform 0.2s ease
- .dash-card:hover {
-  transform: scale(1.02);
-}
-.card-title {
-  font-size: 14px;
-  color: #6c757d;
-  margin-bottom: 4px;
+    border: 1px solid #e9ecef;
+    border-left: 4px solid #0d6efd; /* Accent border */
+    transition: all 0.3s ease-in-out;
 }
 
+.dash-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+}
+
+.dash-card .card-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.dash-icon {
+    font-size: 1.5rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Color variations for the left border */
+.col-xl-3:nth-child(2) .dash-card { border-left-color: #198754; }
+.col-xl-3:nth-child(3) .dash-card { border-left-color: #ffc107; }
+.col-xl-3:nth-child(4) .dash-card { border-left-color: #dc3545; }
 
 
-  
+/* for topnavbar */
+/* Top Navigation Bar Styles */
+.top-nav {
+    background-color: #343a40; /* Bootstrap's 'bg-dark' color */
+    border-bottom: 1px solid #495057;
+    position: sticky; /* Makes it stick to the top on scroll */
+    top: 0;
+    z-index: 1020; /* Ensures it's above content but below modals */
+}
+
+/* Align dropdown menu to the right edge */
+.dropdown-menu-end {
+    right: 0;
+    left: auto;
+}
+
+.dropdown-item i {
+    width: 20px; /* Aligns the text neatly */
+}

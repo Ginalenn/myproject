@@ -1,26 +1,23 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'myapp/static/myapp/css/sidebar.css' %}">
+
+<!-- The <link> and <script> tags have been removed from this partial file. -->
+<!-- They belong in the main base.html file. -->
 
 <nav class="sidebar p-3 bg-dark text-white vh-100 position-fixed" id="side_nav">
-  <!-- Collapse Button (Desktop Only) -->
-  <button id="collapse-btn" title="Collapse Sidebar" class="btn btn-sm text-white d-none d-md-block">
-    <i class="fa fa-angle-left"></i>
-  </button>
-
+  
   <!-- Sidebar Header -->
   <div class="header-box d-flex align-items-center justify-content-between mb-4">
     <div class="d-flex align-items-center">
-      <img src="{% static 'myapp/images/wesmaarrdec.png' %}" alt="Logo" class="me-2">
+      <img src="{% static 'myapp/images/wesmaarrdec.png' %}" alt="Logo" class="me-2" style="width: 35px; height: 35px;">
       <span class="fs-5 fw-semibold">WESMAARDEC</span>
     </div>
-    <!-- Mobile Close Button (optional) -->
-   
   </div>
 
   <!-- Navigation Links -->
   <ul class="nav flex-column gap-1">
     <li class="nav-item">
-      <a class="nav-link text-white px-3 py-2 rounded load-form" href="#" data-url="{% url 'manage_dashboard' %}">
+      <!-- Added 'active' class here so the dashboard is highlighted on first page load -->
+      <a class="nav-link text-white px-3 py-2 rounded load-form active" href="#" data-url="{% url 'manage_dashboard' %}">
         <i class="fa fa-dashboard me-2"></i> <span>Dashboard</span>
       </a>
     </li>
@@ -41,35 +38,3 @@
     </li>
   </ul>
 </nav>
-
-<!-- Sidebar Script -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const sidebar = document.getElementById("side_nav");
-    const collapseBtn = document.getElementById("collapse-btn");
-    const mobileCloseBtn = document.getElementById("mobile-close-btn");
-    const navLinks = sidebar.querySelectorAll(".nav-link");
-
-    // Collapse / Expand animation
-    collapseBtn.addEventListener("click", function () {
-      sidebar.classList.toggle("collapsed");
-      collapseBtn.querySelector("i").classList.toggle("fa-angle-left");
-      collapseBtn.querySelector("i").classList.toggle("fa-angle-right");
-    });
-
-    // Handle active button styling
-    navLinks.forEach(link => {
-      link.addEventListener("click", function () {
-        navLinks.forEach(l => l.classList.remove("active"));
-        this.classList.add("active");
-      });
-    });
-
-    // Mobile close (optional)
-    if (mobileCloseBtn) {
-      mobileCloseBtn.addEventListener("click", function () {
-        sidebar.classList.remove("show");
-      });
-    }
-  });
-</script>

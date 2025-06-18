@@ -1,30 +1,44 @@
-
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.getElementById("side_nav");
-    const collapseBtn = document.getElementById("collapse-btn");
-    const mobileCloseBtn = document.getElementById("mobile-close-btn");
-    const navLinks = sidebar.querySelectorAll(".nav-link");
+    const collapseBtn = document.getElementById("collapse-btn"); // Desktop collapse button
+    const mobileMenuBtn = document.getElementById("mobile-menu-btn"); // Mobile open button
+    const mainContent = document.querySelector('.main-content-wrapper');
 
-    // Animate sidebar toggle
-    collapseBtn.addEventListener("click", function () {
-      sidebar.classList.toggle("collapsed");
-      collapseBtn.querySelector("i").classList.toggle("fa-angle-left");
-      collapseBtn.querySelector("i").classList.toggle("fa-angle-right");
-    });
-
-    // Handle active button styling
-    navLinks.forEach(link => {
-      link.addEventListener("click", function () {
-        navLinks.forEach(l => l.classList.remove("active"));
-        this.classList.add("active");
-      });
-    });
-
-    // Mobile close
-    if (mobileCloseBtn) {
-      mobileCloseBtn.addEventListener("click", function () {
-        sidebar.classList.remove("show");
-      });
+    // Make sure the elements exist before adding listeners
+    if (!sidebar) {
+        console.error("Sidebar element with ID 'side_nav' not found.");
+        return;
     }
-  });
 
+    // --- Desktop Sidebar Collapse/Expand ---
+    if (collapseBtn && mainContent) {
+        collapseBtn.addEventListener("click", function () {
+            // Toggle classes on both the sidebar and the main content wrapper
+            sidebar.classList.toggle("collapsed");
+            mainContent.classList.toggle("collapsed");
+
+            // Animate the collapse button icon
+            const icon = collapseBtn.querySelector("i");
+            if (icon) {
+                icon.classList.toggle("fa-angles-left");
+                icon.classList.toggle("fa-angles-right");
+            }
+        });
+    }
+
+    // --- Mobile Sidebar Show/Hide ---
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener("click", function () {
+            sidebar.classList.add("sidebar-show");
+        });
+    }
+
+    // --- Close Mobile Sidebar when clicking outside of it ---
+    // This adds an overlay to the page for a better user experience
+    document.addEventListener('click', function(event) {
+        if (sidebar.classList.contains('sidebar-show') && !sidebar.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+            sidebar.classList.remove('sidebar-show');
+        }
+    });
+
+});

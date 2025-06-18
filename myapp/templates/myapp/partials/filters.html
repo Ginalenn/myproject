@@ -1,0 +1,39 @@
+<form id="filter-form">
+    <div class="p-3 border rounded bg-white">
+        <h6 class="fw-bold mb-3 text-primary">Filter & Sort</h6>
+        
+        <div class="mb-3">
+            <label for="strategyFilter" class="form-label small">Strategy Name</label>
+            <select id="strategyFilter" name="strategy" class="form-select form-select-sm">
+                <option value="">All Strategies</option>
+                {% for strategy in strategies %}
+                <option value="{{ strategy }}">{{ strategy }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="row g-2 mb-3">
+            <div class="col">
+                <label for="dateFrom" class="form-label small">From</label>
+                <input type="date" id="dateFrom" name="date_from" class="form-control form-control-sm">
+            </div>
+            <div class="col">
+                <label for="dateTo" class="form-label small">To</label>
+                <input type="date" id="dateTo" name="date_to" class="form-control form-control-sm">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="sortBy" class="form-label small">Sort By</label>
+            <select id="sortBy" name="sort_by" class="form-select form-select-sm">
+                <option value="date-desc">Newest First</option>
+                <option value="date-asc">Oldest First</option>
+                <option value="title-asc">Title (A-Z)</option>
+                <option value="title-desc">Title (Z-A)</option>
+            </select>
+        </div>
+        <!-- Add other filter inputs here, ensuring they have a 'name' attribute -->
+
+        <button type="submit" class="btn btn-primary w-100">Apply</button>
+    </div>
+</form>
