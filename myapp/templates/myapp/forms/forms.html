@@ -1,3 +1,5 @@
+
+     {% include 'myapp/partials/navbar.html' %}
 {% block content %}
 <div class="container my-5">
   <div class="card card-custom">
@@ -61,7 +63,7 @@
 
         <!-- Upload Section -->
         <div class="form-section">
-          <h6 class="mb-3 text-danger fw-semibold"><i class="bi bi-upload me-2"></i>Upload Proof</h6>
+          <h6 class="mb-3 text-danger fw-semibold"><i class="bi bi-file-plus-fill"></i>Upload Proof</h6>
           <label for="proof_image" class="form-label">Proof of Activity (Image Upload)</label>
           <input type="file" name="proof_image" id="proof_image" class="form-control" accept="image/*" required>
         </div>
