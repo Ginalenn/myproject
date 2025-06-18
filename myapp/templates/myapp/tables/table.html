@@ -1,7 +1,7 @@
-{% load static %}
-     {% include 'myapp/partials/navbar.html' %}
+
+{% include 'myapp/partials/navbar.html' %}
 {% block content %}
-<body class="bg-light text-dark">
+
   <div class="container py-4">
     <div class="card card-custom shadow-sm">
       <div class="card-header d-flex justify-content-between align-items-center bg-light">
@@ -158,6 +158,9 @@
 
   {% endblock %}
 
+
+{% block scripts %}
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const activityTableBody = document.querySelector('#activityTable tbody');
@@ -303,6 +306,5 @@
       });
     });
   </script>
-</body>
-</html>
 
+ {% endblock %}

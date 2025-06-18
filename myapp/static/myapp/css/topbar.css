@@ -1,0 +1,16 @@
+
+.top-navbar {
+  padding: 0.5rem 1.5rem;
+  height: 60px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+/* Avatar Style */
+.top-navbar .avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}

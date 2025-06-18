@@ -1,82 +1,72 @@
-.sidebar {
+/* Sidebar base */
+#side_nav {
   width: 250px;
-  background: #1a1d20;
-  color: white;
-  transition: all 0.3s ease;
+  transition: width 0.3s ease;
+  height: 100vh;
   z-index: 1040;
 }
 
-.nav-link {
-  transition: background-color 0.2s ease, color 0.2s ease;
+#side_nav.collapsed {
+  width: 70px;
 }
 
-.nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #fff;
+/* Logo text and nav item text fade when collapsed */
+#side_nav .nav-link span,
+#side_nav .header-box span {
+  transition: opacity 0.3s ease;
 }
 
-.nav-link.active {
-  background: linear-gradient(135deg, #007bff, #00c6ff);
-  color: #fff !important;
-  font-weight: 500;
+#side_nav.collapsed .nav-link span,
+#side_nav.collapsed .header-box span {
+  opacity: 0;
+  pointer-events: none;
 }
 
-.close-btn {
-  font-size: 1.2rem;
-  background: none;
+/* Logo image size */
+#side_nav .header-box img {
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+#side_nav.collapsed .header-box img {
+  transform: scale(0.8);
+}
+
+/* Collapse toggle button */
+#collapse-btn {
+  position: absolute;
+  top: 10px;
+  right: -15px;
+  z-index: 1050;
+  background-color: #212529;
   border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
+/* Active nav item */
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.15);
+  font-weight: 600;
+}
+
+/* Mobile responsiveness */
 @media (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    left: -100%;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #1a1d20;
+  #side_nav {
+    display: none;
+    position: absolute;
+    height: 100vh;
+    background-color: #212529;
   }
 
-  .sidebar.active {
-    left: 0;
+  #side_nav.show {
+    display: block;
+  }
+
+  #collapse-btn {
+    display: none;
   }
 }
-
-
-  .card-custom {
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
-    overflow: hidden;
-  }
-
-  .card-header-custom {
-     background: #004d40;
-    color: #fff;
-    padding: 1rem 1.5rem;
-    border-bottom: none;
-  }
-
-  .avatar {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid #dee2e6;
-  }
-
-  .form-section {
-    background-color: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin-bottom: 1.5rem;
-  }
-
-  .form-label {
-    font-weight: 500;
-  }
-
-  .btn-submit {
-    padding: 0.6rem 1.5rem;
-    font-weight: 500;
-    border-radius: 8px;
-  }

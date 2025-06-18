@@ -1,36 +1,75 @@
 {% load static %}
+<link rel="stylesheet" href="{% static 'myapp/static/myapp/css/sidebar.css' %}">
 
-<nav class="sidebar p-3 bg-dark text-white vh-100 position-fixed" id="side_nav" style="width: 250px;">
+<nav class="sidebar p-3 bg-dark text-white vh-100 position-fixed" id="side_nav">
+  <!-- Collapse Button (Desktop Only) -->
+  <button id="collapse-btn" title="Collapse Sidebar" class="btn btn-sm text-white d-none d-md-block">
+    <i class="fa fa-angle-left"></i>
+  </button>
+
   <!-- Sidebar Header -->
   <div class="header-box d-flex align-items-center justify-content-between mb-4">
     <div class="d-flex align-items-center">
-      <img src="{% static 'myapp/images/wesmaarrdec.png' %}" alt="Logo" class="me-2" style="height: 40px;">
+      <img src="{% static 'myapp/images/wesmaarrdec.png' %}" alt="Logo" class="me-2">
       <span class="fs-5 fw-semibold">WESMAARDEC</span>
     </div>
-    <button class="btn d-md-none text-white close-btn"><i class="fa fa-times"></i></button>
+    <!-- Mobile Close Button (optional) -->
+   
   </div>
 
-  <!-- Navigation -->
+  <!-- Navigation Links -->
   <ul class="nav flex-column gap-1">
     <li class="nav-item">
       <a class="nav-link text-white px-3 py-2 rounded load-form" href="#" data-url="{% url 'manage_dashboard' %}">
-        <i class="fa fa-dashboard me-2"></i> Dashboard
+        <i class="fa fa-dashboard me-2"></i> <span>Dashboard</span>
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link text-white px-3 py-2 rounded load-form" href="#" data-url="{% url 'manage_records' %}">
-        <i class="fa fa-folder-open me-2"></i> Manage Records
+        <i class="fa fa-folder-open me-2"></i> <span>Manage Records</span>
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link text-white px-3 py-2 rounded load-form" href="#" data-url="{% url 'add_activity_form' %}">
-        <i class="fa fa-plus me-2"></i> Add New Records
+        <i class="fa fa-plus me-2"></i> <span>Add New Records</span>
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link text-white px-3 py-2 rounded" href="#">
-        <i class="fa fa-bar-chart me-2"></i> Reports
+        <i class="fa fa-bar-chart me-2"></i> <span>Reports</span>
       </a>
     </li>
   </ul>
 </nav>
+
+<!-- Sidebar Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("side_nav");
+    const collapseBtn = document.getElementById("collapse-btn");
+    const mobileCloseBtn = document.getElementById("mobile-close-btn");
+    const navLinks = sidebar.querySelectorAll(".nav-link");
+
+    // Collapse / Expand animation
+    collapseBtn.addEventListener("click", function () {
+      sidebar.classList.toggle("collapsed");
+      collapseBtn.querySelector("i").classList.toggle("fa-angle-left");
+      collapseBtn.querySelector("i").classList.toggle("fa-angle-right");
+    });
+
+    // Handle active button styling
+    navLinks.forEach(link => {
+      link.addEventListener("click", function () {
+        navLinks.forEach(l => l.classList.remove("active"));
+        this.classList.add("active");
+      });
+    });
+
+    // Mobile close (optional)
+    if (mobileCloseBtn) {
+      mobileCloseBtn.addEventListener("click", function () {
+        sidebar.classList.remove("show");
+      });
+    }
+  });
+</script>

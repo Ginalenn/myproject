@@ -1,13 +1,10 @@
-  
-  
-  {% load static %}
-  <!-- Top Navbar -->
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm px-4 py-2 d-flex justify-content-end align-items-center" style="height: 60px;">
+{% load static %}
+<!-- Top Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light top-navbar shadow-sm">
   <ul class="navbar-nav ms-auto align-items-center">
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="{% static 'myapp/images/avatar.png' %}" alt="User Avatar" width="35" height="35" class="rounded-circle me-2">
+        <img src="{% static 'myapp/images/avatar.png' %}" alt="User Avatar" class="avatar me-2">
         <span class="d-none d-md-inline">{{ request.user.username }}</span>
       </a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">

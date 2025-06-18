@@ -1,10 +1,4 @@
 
-    body {
-      background: white;
-      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      color: #333;
-      height: 100vh;
-    }
     #side_nav {
       background: #004d40;
       min-width: 250px;
@@ -141,6 +135,90 @@
         font-size: 1.5rem;
       }
     }
+ 
+    /* Sidebar active highlight logic */
+.sidebar li.active {
+  background: #a7ffeb !important;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar li.active a,
+.sidebar li.active a:hover {
+  color: #004d40;
+  font-weight: 600;
+}
+
+/* Sidebar animation for collapsed state */
+#side_nav.collapsed {
+  min-width: 70px;
+  max-width: 70px;
+}
+
+#side_nav.collapsed .nav-link span,
+#side_nav.collapsed .logo-text {
+  display: none;
+}
+
+#side_nav .nav-link {
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+
+    .card-custom {
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      background-color: #ffffff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-header-custom {
+      background-color: #0f172a;
+      color: #f8fafc;
+      border-radius: 0.5rem 0.5rem 0 0;
+      padding: 1rem 1.5rem;
+    }
+
+    .btn-custom {
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+
+    .btn-custom:hover {
+      background-color: rgba(15, 23, 42, 0.9);
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #e2e8f0;
+    }
+
+    .form-control:focus {
+      box-shadow: 0 0 0 0.2rem rgba(15, 23, 42, 0.2);
+      border-color: #0f172a;
+    }
+ 
+
+.dash-card {
+  border-radius: 15px;
+  padding: 20px;
+  background: #fff;
+  transition: transform 0.2s ease
+ .dash-card:hover {
+  transform: scale(1.02);
+}
+.card-title {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 4px;
+}
+
+
+
+  
  
     .card-custom {
       border: 1px solid #e2e8f0;

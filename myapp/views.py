@@ -15,3 +15,9 @@ def add_activity_form_view(request):
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         return render(request, 'myapp/forms/forms.html')
     return render(request, 'myapp/index.html')
+
+def edit_activity_form_view(request):
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request, 'myapp/forms/edit_form.html')
+    return render(request, 'myapp/index.html')
+
