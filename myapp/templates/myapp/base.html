@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="{% static 'myapp/css/topnav.css' %}">
   <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
   <link rel="stylesheet" href="{% static 'myapp/css/tables.css' %}">
+  <link rel="stylesheet" href="{% static 'myapp/css/sidebar.css' %}">  {# Our enhanced sidebar styles #}
 
 </head>
 <body>
@@ -42,11 +43,12 @@
     <!-- DataTables Extensions (for Buttons, including Column Visibility) -->
     <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.colVis.js"></script>
-    <script src="{% static 'myapp/side.js' %}"></script> 
     <script src="{% static 'myapp/js/responsive.bootstrap5.js' %}"></script>
     <script src="{% static 'myapp/js/dataTables.responsive.js' %}"></script>
+    <script src="{% static 'myapp/js/side.js' %}"></script> {# Our sidebar interactivity script #}
 
     {% block extra_js %}{% endblock %}
 
 </body>
 </html>
+

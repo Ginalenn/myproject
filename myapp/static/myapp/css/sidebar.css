@@ -1,72 +1,192 @@
-/* Sidebar base */
-#side_nav {
-  width: 250px;
-  transition: width 0.3s ease;
-  height: 100vh;
-  z-index: 1040;
+/* myapp/static/myapp/css/sidebar.css */
+
+/* --- 1. CSS Variables for Easy Theming --- */
+:root {
+  --sidebar-bg: #012a07; /* A deeper, richer green */
+  --sidebar-bg-gradient: linear-gradient(180deg, rgba(2, 56, 10, 1) 0%, rgba(1, 42, 7, 1) 100%);
+  --sidebar-link-color: #abb3c4;
+  --sidebar-link-hover-bg: rgba(255, 255, 255, 0.07);
+  --sidebar-link-active-color: #000000;
+  --sidebar-link-active-bg: #ffffff; /* Bootstrap Primary for active state */
+  --sidebar-header-color: #ffffff;
+  --sidebar-width: 260px;
+  --sidebar-width-collapsed: 80px;
+  --sidebar-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#side_nav.collapsed {
-  width: 70px;
+/* --- 2. Main Sidebar Structure & Transition --- */
+.sidebar {
+  width: var(--sidebar-width);
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1030;
+  background: var(--sidebar-bg);
+  background-image: var(--sidebar-bg-gradient);
+  transition: var(--sidebar-transition);
+  box-shadow: 0.75rem 0 1.5rem rgba(0,0,0,0.05);
 }
 
-/* Logo text and nav item text fade when collapsed */
-#side_nav .nav-link span,
-#side_nav .header-box span {
-  transition: opacity 0.3s ease;
+/* --- 3. Collapsed State --- */
+.sidebar.collapsed {
+  width: var(--sidebar-width-collapsed);
 }
 
-#side_nav.collapsed .nav-link span,
-#side_nav.collapsed .header-box span {
+.sidebar.collapsed .sidebar-header .logo-text,
+.sidebar.collapsed .nav-link .link-text,
+.sidebar.collapsed .nav-link .fa-chevron-down,
+.sidebar.collapsed .user-section .user-info,
+.sidebar.collapsed .nav-item-header {
   opacity: 0;
-  pointer-events: none;
+  width: 0;
+  visibility: hidden;
+  transition: opacity 0.1s ease;
 }
 
-/* Logo image size */
-#side_nav .header-box img {
-  height: 40px;
-  transition: transform 0.3s ease;
+.sidebar.collapsed .sidebar-header {
+  justify-content: center;
+}
+.sidebar.collapsed .nav-link {
+  justify-content: center;
 }
 
-#side_nav.collapsed .header-box img {
-  transform: scale(0.8);
+/* --- 4. Header --- */
+.sidebar-header {
+  padding: 1.25rem 1.5rem;
+  transition: var(--sidebar-transition);
 }
 
-/* Collapse toggle button */
-#collapse-btn {
-  position: absolute;
-  top: 10px;
-  right: -15px;
-  z-index: 1050;
-  background-color: #212529;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  font-size: 1rem;
+.sidebar-header .logo-img {
+  width: 35px;
+  height: 35px;
   transition: all 0.3s ease;
 }
 
-/* Active nav item */
-.nav-link.active {
-  background-color: rgba(255, 255, 255, 0.15);
+.sidebar-header .logo-text {
+  color: var(--sidebar-header-color);
   font-weight: 600;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  transition: var(--sidebar-transition);
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  #side_nav {
-    display: none;
-    position: absolute;
-    height: 100vh;
-    background-color: #212529;
-  }
+/* --- 5. Navigation Links & Headers --- */
+.nav-item-header {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--sidebar-link-color);
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  transition: var(--sidebar-transition);
+}
 
-  #side_nav.show {
-    display: block;
-  }
+.sidebar-nav .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1.5rem;
+  color: var(--sidebar-link-color);
+  border-radius: 0.5rem;
+  margin: 0 0.75rem;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  position: relative;
+}
 
-  #collapse-btn {
-    display: none;
-  }
+.sidebar-nav .nav-link .link-text {
+  transition: var(--sidebar-transition);
+}
+
+.sidebar-nav .nav-link:hover {
+  background-color: var(--sidebar-link-hover-bg);
+  color: #000000;
+}
+
+/* Elegant active state indicator */
+.sidebar-nav .nav-link.active {
+  color: var(--sidebar-link-active-color);
+  background-color: var(--sidebar-link-active-bg);
+  font-weight: 500;
+  box-shadow: 0 4px 8px -2px rgba(13, 110, 253, 0.5);
+}
+
+/* --- 6. Submenu Styling --- */
+.sidebar-nav .collapse .nav-link {
+  padding-left: 3.5rem; /* Indent sub-items */
+  font-size: 0.9rem;
+  background: transparent;
+}
+.sidebar-nav .collapse .nav-link::before {
+  content: '';
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--sidebar-link-color);
+  opacity: 0.5;
+}
+.sidebar-nav .collapse .nav-link.active,
+.sidebar-nav .collapse .nav-link:hover {
+  color: #fff;
+  background: transparent;
+}
+.sidebar-nav .collapse .nav-link.active::before {
+  background-color: var(--sidebar-link-active-color);
+  opacity: 1;
+}
+
+.sidebar-nav .nav-link[data-bs-toggle="collapse"] .fa-chevron-down {
+  transition: transform 0.3s ease;
+}
+
+.sidebar-nav .nav-link[data-bs-toggle="collapse"][aria-expanded="true"] .fa-chevron-down {
+  transform: rotate(180deg);
+}
+
+
+/* --- 7. User Section Dropdown --- */
+.user-section {
+  padding: 0 0.75rem 1rem 0.75rem;
+  margin-top: auto;
+}
+.user-section .dropdown-toggle {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--sidebar-link-color);
+  transition: background-color 0.2s ease;
+}
+.user-section .dropdown-toggle:hover {
+  background-color: var(--sidebar-link-hover-bg);
+  color: #fff;
+}
+
+.user-section .user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+.user-section .user-info {
+  margin-left: 0.75rem;
+  text-align: left;
+  white-space: nowrap;
+  transition: var(--sidebar-transition);
+}
+.user-section .user-info .username {
+  font-weight: 600;
+  color: #fff;
+}
+.user-section .user-info .role {
+  font-size: 0.8rem;
 }
