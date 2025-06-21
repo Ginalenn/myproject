@@ -1,4 +1,3 @@
-<!-- myapp/templates/myapp/tables/manage_records.html -->
 {% extends 'myapp/base.html' %}
 {% load static %}
 
@@ -33,18 +32,14 @@
     <div class="row g-4">
         <!-- Filter Sidebar Column -->
         <div class="col-lg-3">
-            <!-- This include remains the same; Django will render it server-side. -->
-            <!-- The context variables from the view will be available here. -->
+          
             {% include 'myapp/partials/filters.html' %}
         </div>
 
         <!-- Data Table Column -->
         <div class="col-lg-9">
             <div class="card shadow-sm border-0">
-                <!-- 
-                  The table content is now rendered directly by the server.
-                  The context variable 'activities' will be available here.
-                -->
+               
                 {% include 'myapp/partials/table_content.html' %}
             </div>
         </div>
@@ -53,9 +48,6 @@
 {% endblock %}
 
 {% block extra_js %}
-<!--
-  This block injects the page-specific JavaScript into base.html.
-  DataTables will enhance the table after it has been fully rendered by Django.
--->
+
 <script src="{% static 'myapp/js/manage_records.js' %}"></script>
 {% endblock %}

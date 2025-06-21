@@ -1,24 +1,15 @@
 {% load static %}
 
-<!--
-  SIDEBAR CONVERTED FOR TRADITIONAL NAVIGATION (NO AJAX)
-  - `href` now points to the actual URL.
-  - `data-url` and `load-form` classes are removed as they are for AJAX.
-  - The `active` class is now set dynamically by Django based on the current page's URL name.
--->
 <nav class="sidebar p-3 d-flex flex-column" id="side_nav">
   
-  <div> <!-- Main navigation wrapper -->
-    <!-- Sidebar Header -->
+  <div> 
     <div class="header-box d-flex align-items-center mb-4">
       <img src="{% static 'myapp/images/wesmaarrdec.png' %}" alt="Logo" class="me-2" style="width: 35px; height: 35px;">
       <span class="fs-5 fw-semibold text-white">WESMAARDEC</span>
     </div>
 
-    <!-- Navigation Links -->
     <ul class="nav flex-column gap-1" id="sidebar-nav-list">
       <li class="nav-item">
-        <!-- href now uses the url tag. The active class is conditional. -->
         <a class="nav-link px-3 py-2 rounded {% if request.resolver_match.url_name == 'manage_dashboard' %}active{% endif %}" 
            href="{% url 'myapp:manage_dashboard' %}">
           <i class="fa-solid fa-chart-pie fa-fw me-2"></i>
@@ -40,7 +31,6 @@
         </a>
       </li>
       
-      <!-- Collapsible Submenu for Reports -->
       <li class="nav-item">
         <a class="nav-link px-3 py-2 rounded" data-bs-toggle="collapse" href="#submenuReports" role="button" aria-expanded="false" aria-controls="submenuReports">
           <i class="fa-solid fa-chart-simple fa-fw me-2"></i>
@@ -50,7 +40,6 @@
         <div class="collapse" id="submenuReports">
           <ul class="nav flex-column ps-4 mt-1 gap-1">
             <li class="nav-item">
-              <!-- Example of a future reports link -->
               <a href="" class="nav-link px-3 py-2 rounded small {% if request.resolver_match.url_name == 'monthly_report' %}active{% endif %}">Monthly Summary</a>
             </li>
             <li class="nav-item">
@@ -62,14 +51,12 @@
     </ul>
   </div>
 
-  <!-- User/Logout section at the bottom -->
   <div class="user-section mt-auto">
     <hr class="text-white-50">
     <div class="d-flex align-items-center">
       <i class="fa-solid fa-user-circle fa-2x text-white-50 me-3"></i>
       <div>
         <div class="fw-semibold text-white">{{ request.user.username }}</div>
-        <!-- This should point to your actual logout URL -->
         <a href="" class="small text-white-50 text-decoration-none">Logout</a>
       </div>
     </div>
@@ -77,12 +64,10 @@
 
 </nav>
 
-<!-- The <style> block from your original code would remain here or in your main CSS file -->
 <style>
-  /* All your sidebar CSS styling goes here... */
   .sidebar {
-    background-color: #02380a; /* Standard Bootstrap dark */
-    color: #adb5bd; /* Lighter grey for text */
+    background-color: #02380a; 
+    color: #adb5bd; 
     width: 260px;
     position: fixed;
     top: 0;

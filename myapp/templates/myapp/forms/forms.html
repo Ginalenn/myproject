@@ -16,7 +16,6 @@
 
             <div class="card-body p-4">
                 <!-- 2. USER INFO BLOCK -->
-                <!-- A clean, bordered block to introduce the user -->
                 <div class="d-flex align-items-center gap-3 mb-4 p-3 bg-light-subtle border rounded">
                     <img src="{% static 'myapp/images/wesmaarrdec.png' %}" alt="User" class="rounded-circle" width="50" height="50">
                     <div>
@@ -26,7 +25,6 @@
                 </div>
 
                 <!-- 3. STRATEGY SECTION -->
-                <!-- Fields are grouped logically with a clear header -->
                 <h5 class="fw-semibold mb-3">Strategy Information</h5>
                 <div class="mb-3">
                     <label for="{{ form.strategy_name.id_for_label }}" class="form-label">Strategy Name</label>
@@ -64,7 +62,6 @@
                 <hr class="my-4">
                 
                 <!-- 5. AGENCY & PARTICIPANT SECTION -->
-                <!-- A much cleaner grid layout with proper labels for each field -->
                 <h5 class="fw-semibold mb-3">Agency & Participant Information</h5>
                 <div class="row g-3">
                     <div class="col-md-6"><label class="form-label">Funding Agency</label>{{ form.funding_agency }}</div>
@@ -78,7 +75,6 @@
                 <hr class="my-4">
 
                 <!-- 6. UPLOAD SECTION -->
-                <!-- A modern drag-and-drop style file input -->
                 <h5 class="fw-semibold mb-3">Upload Proof</h5>
                 <label class="form-label">Proof of Activity (Image)</label>
                 <div class="file-upload-wrapper text-center p-5 bg-light-subtle border-dashed rounded">
@@ -86,7 +82,7 @@
                     <p class="mb-1">Drag & drop your file here or</p>
                     <label for="{{ form.proof_image.id_for_label }}" class="btn btn-sm btn-outline-primary">Browse Files</label>
                     <p id="fileName" class="text-muted small mt-2"></p>
-                    {{ form.proof_image }} <!-- This input is visually hidden but functional -->
+                    {{ form.proof_image }}
                 </div>
                 <div class="invalid-feedback d-block">{{ form.proof_image.errors|first }}</div>
             </div>
