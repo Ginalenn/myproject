@@ -1,63 +1,67 @@
-<div class="table-responsive">
-    <table class="table table-hover" id="activityTable">
-        <thead class="table-light">
+<!-- myapp/partials/table_content.html -->
+
+<div class="p-3">
+    <table id="activities-table" class="table table-hover align-middle" style="width:100%">
+        <thead>
             <tr>
                 <th>ID</th>
-                <th>Strategy Name</th>
-                <th>Activity Title</th>
-                <th>Date</th>
-                <th>Created By</th>
-                <th class="text-center">Action</th>
+                <th>Activity Title / Agency</th>
+                <th>Strategy</th>
+                <th>Date From</th>
+                <th>Date To</th>
+                <th>Funding</th>
+                <th class="text-center">Proof?</th>
+                <th>Submitted By</th>
+                <th class="text-end">Actions</th>
             </tr>
         </thead>
         <tbody>
-            {% for activity in activities %}
             <tr>
-                <td>{{ activity.id }}</td>
+                <!-- ID Column -->
+                <td class="text-muted fw-semibold">#{{ activity.id }}</td>
+                
+                <!-- Activity Title Column (Using new custom classes) -->
+                <td class="td-main">
+                    <span class="title">{{ activity.activity_title }}</span>
+                    <span class="subtitle">{{ activity.implementing_agency|default:"No implementing agency" }}</span>
+                </td>
+
+                <!-- Other Data Columns -->
                 <td>{{ activity.strategy_name }}</td>
-                <td>{{ activity.activity_title }}</td>
                 <td>{{ activity.date_from|date:"M d, Y" }}</td>
-                <td>{{ activity.created_by.username|default:"N/A" }}</td>
+                <td>{{ activity.date_to|date:"M d, Y" }}</td>
+                <td>{{ activity.funding_agency|default:"-" }}</td>
+
+                <!-- Proof Column (Using new custom badge classes) -->
                 <td class="text-center">
-                    <div class="d-flex gap-1 justify-content-center">
-                        <button class="btn btn-sm btn-outline-info" title="View"><i class="fa-solid fa-eye"></i></button>
-                        <button class="btn btn-sm btn-outline-primary" title="Edit"><i class="fa-solid fa-pencil"></i></button>
-                        <button class="btn btn-sm btn-outline-danger" title="Delete" data-id="{{ activity.id }}"><i class="fa-solid fa-trash"></i></button>
+                    {% if activity.proof_image %}
+                        <span class="badge-status success" title="Proof Submitted">
+                            <i class="fa-solid fa-check-circle"></i> Yes
+                        </span>
+                    {% else %}
+                        <span class="badge-status danger" title="No Proof">
+                            <i class="fa-solid fa-times-circle"></i> No
+                        </span>
+                    {% endif %}
+                </td>
+                
+                <td>{{ activity.created_by.username|default:"-" }}</td>
+
+                <!-- Actions Column (Using new custom button class) -->
+                <td class="text-end">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-actions dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-ellipsis-vertical"></i> <!-- Vertical ellipsis is more standard -->
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item action-view" href="#" data-activity-id="{{ activity.id }}"><i class="fa-solid fa-eye fa-fw me-2"></i>View Details</a></li>
+                            <li><a class="dropdown-item action-edit" href="#" data-activity-id="{{ activity.id }}"><i class="fa-solid fa-pencil fa-fw me-2"></i>Edit</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger action-delete" href="#" data-activity-id="{{ activity.id }}"><i class="fa-solid fa-trash-can fa-fw me-2"></i>Delete</a></li>
+                        </ul>
                     </div>
                 </td>
             </tr>
-            {% empty %}
-            <tr>
-                <td colspan="6" class="text-center py-4 text-muted">No activities found matching your criteria.</td>
-            </tr>
-            {% endfor %}
         </tbody>
     </table>
 </div>
-
-<!-- Dynamic Pagination -->
-{% if activities.has_other_pages %}
-<nav aria-label="Activity table pagination" class="mt-4">
-    <ul class="pagination justify-content-center">
-        {% if activities.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page={{ activities.previous_page_number }}" data-page="{{ activities.previous_page_number }}">Previous</a></li>
-        {% else %}
-        <li class="page-item disabled"><span class="page-link">Previous</span></li>
-        {% endif %}
-
-        {% for i in activities.paginator.get_elided_page_range %}
-            {% if activities.number == i %}
-                <li class="page-item active" aria-current="page"><span class="page-link">{{ i }}</span></li>
-            {% else %}
-                <li class="page-item"><a class="page-link" href="?page={{ i }}" data-page="{{ i }}">{{ i }}</a></li>
-            {% endif %}
-        {% endfor %}
-        
-        {% if activities.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ activities.next_page_number }}" data-page="{{ activities.next_page_number }}">Next</a></li>
-        {% else %}
-        <li class="page-item disabled"><span class="page-link">Next</span></li>
-        {% endif %}
-    </ul>
-</nav>
-{% endif %}

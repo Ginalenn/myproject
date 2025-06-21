@@ -8,82 +8,60 @@
 
   <!-- Libs CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.0/css/responsive.bootstrap5.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+
   
   <!-- Custom CSS -->
   <!-- 1. ADDED: Link to the new topnav CSS -->
   <link rel="stylesheet" href="{% static 'myapp/css/topnav.css' %}">
   <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
+    <link rel="stylesheet" href="{% static 'myapp/css/tables.css' %}">
 
 </head>
 <body>
+
+  <!-- PROBABLE CURRENT base.html (Incorrect Layout) -->
+
+   <!-- 1. The main flex container that holds everything -->
   <div class="d-flex">
 
-    <!-- Sidebar (Stays the same) -->
+    <!-- 2. The Sidebar -->
+    <!-- It is included here and will be fixed to the left by its own CSS -->
     {% include 'myapp/partials/sidebar.html' %}
 
-    <!-- 2. RESTRUCTURED: The main content is now split into a wrapper and a content area -->
-    <div class="main-content-wrapper flex-grow-1" style="margin-left: 250px;">
+    <!-- 3. The Main Content Wrapper -->
+    <!-- This div is pushed to the right to make space for the fixed sidebar -->
+    <div class="main-content-wrapper flex-grow-1" style="margin-left: 260px;">
       
-      <!-- 3. MOVED & REPLACED: The topnav is now here, outside the dynamic content area -->
-      {% include 'myapp/partials/navbar.html' %}
+      <!-- The block where page-specific content (like your dashboard) will be injected -->
+      {% block content %}
+      {% endblock %}
 
-      <!-- 4. RENAMED: This is the new area for AJAX content. Note the ID change. -->
-      <div id="dynamic-content-area">
-        {% block content %}
-          <!-- Initial page-specific content goes here. Will be replaced by AJAX. -->
-        {% endblock %}
-      </div>
     </div>
-
   </div>
 
-  <!-- Libs JS -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    
+    <!-- Bootstrap 5 JS Bundle (You already have this) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Custom JS -->
-
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
+    
+    <!-- DataTables Extensions (for Buttons, including Column Visibility) -->
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.colVis.js"></script>
   <script src="{% static 'myapp/side.js' %}"></script> 
+  <script src="https://cdn.datatables.net/responsive/3.0.0/js/dataTables.responsive.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.0/js/responsive.bootstrap5.js"></script>
+  
 
+    {% block extra_js %}{% endblock %}
 
-<!-- AJAX Dynamic Content Loader -->
-<script>
-  $(document).ready(function () {
-    const contentArea = $('#dynamic-content-area'); // Target the correct div
-    const sidebarLinks = $('.sidebar .load-form'); // Get all AJAX links in the sidebar
-
-    // Function to load content
-    function loadContent(url) {
-        if (url) {
-            contentArea.html('<div class="d-flex justify-content-center p-5"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>');
-            contentArea.load(url);
-        }
-    }
-
-    // --- CLICK EVENT HANDLER ---
-    // This is the single place where we handle clicks now.
-    sidebarLinks.click(function (e) {
-      e.preventDefault();
-      
-      // 1. ADDED: Remove 'active' class from all sidebar links
-      sidebarLinks.removeClass('active');
-      
-      // 2. ADDED: Add 'active' class to the link that was just clicked
-      $(this).addClass('active');
-
-      // 3. Load the content from the clicked link's data-url
-      const url = $(this).data('url');
-      loadContent(url);
-    });
-
-    // --- INITIAL PAGE LOAD ---
-    // This code runs once when the page first loads to show the dashboard.
-    const initialUrl = $('.sidebar .load-form.active').data('url');
-    loadContent(initialUrl);
-
-  });
-</script>
 </body>
 </html>

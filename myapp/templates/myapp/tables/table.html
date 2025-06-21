@@ -1,38 +1,61 @@
+<!-- myapp/templates/myapp/tables/manage_records.html -->
+{% extends 'myapp/base.html' %}
 {% load static %}
 
-<div class="container-fluid py-4">
-    <div class="card shadow-sm">
-        <div class="card-header bg-light d-flex flex-wrap justify-content-between align-items-center gap-2">
-            <h2 class="h5 mb-0 fw-bold text-dark">Manage Activity Records</h2>
-            <div class="d-flex flex-wrap gap-2">
-                <a href="#" class="btn btn-sm btn-primary d-flex align-items-center"><i class="fa-solid fa-plus me-2"></i>Add Activity</a>
-                <button type="button" class="btn btn-sm btn-outline-success d-flex align-items-center"><i class="fa-solid fa-file-import me-2"></i>Import</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center"><i class="fa-solid fa-file-export me-2"></i>Export</button>
+{% block title %}Manage Records - WESMAARDEC{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-4">
+    <!-- 1. PAGE HEADER -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <div>
+            <h2 class="fw-bold text-dark mb-1">Manage Activity Records</h2>
+            <p class="text-muted mb-0">Search, filter, and manage all records from this page.</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <!-- This is a standard link to the 'Add New Record' page -->
+            <a href="{% url 'add_activity_form' %}" class="btn btn-primary d-flex align-items-center">
+                <i class="fa-solid fa-plus me-2"></i>Add Activity
+            </a>
+            <div class="btn-group">
+                <button type="button" class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-file-lines me-2"></i> Options
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-file-import me-2"></i>Import Records</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-file-export me-2"></i>Export Records</a></li>
+                </ul>
             </div>
         </div>
+    </div>
 
-        <div class="card-body">
-            <div class="row g-4">
-                <!-- Filter Sidebar -->
-                <div class="col-lg-3">
-                    <!-- CORRECTED PATH: Removed 'tables/' from the path -->
-                    {% include 'myapp/partials/filters.html' %}
-                </div>
+    <!-- 2. MAIN CONTENT GRID -->
+    <div class="row g-4">
+        <!-- Filter Sidebar Column -->
+        <div class="col-lg-3">
+            <!-- This include remains the same; Django will render it server-side. -->
+            <!-- The context variables from the view will be available here. -->
+            {% include 'myapp/partials/filters.html' %}
+        </div>
 
-                <!-- Table Content -->
-                <div class="col-lg-9">
-                    <input type="text" id="customSearchBox" placeholder="Search by Title, ID, or Description..." class="form-control mb-3" name="search" />
-                    
-                    <!-- This wrapper will be updated by AJAX -->
-                    <div id="table-content-wrapper">
-                        <!-- CORRECTED PATH: Removed 'tables/' from the path -->
-                        {% include 'myapp/partials/table_content.html' %}
-                    </div>
-                </div>
+        <!-- Data Table Column -->
+        <div class="col-lg-9">
+            <div class="card shadow-sm border-0">
+                <!-- 
+                  The table content is now rendered directly by the server.
+                  The context variable 'activities' will be available here.
+                -->
+                {% include 'myapp/partials/table_content.html' %}
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
 
-<!-- This static file path is correct based on your `tree` output -->
+{% block extra_js %}
+<!--
+  This block injects the page-specific JavaScript into base.html.
+  DataTables will enhance the table after it has been fully rendered by Django.
+-->
 <script src="{% static 'myapp/js/manage_records.js' %}"></script>
+{% endblock %}

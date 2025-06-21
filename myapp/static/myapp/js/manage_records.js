@@ -1,87 +1,88 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const tableContentWrapper = document.getElementById('table-content-wrapper');
-    const filterForm = document.getElementById('filter-form');
-    const searchBox = document.getElementById('customSearchBox');
-    let searchTimeout;
+// myapp/static/myapp/js/manage_records.js
 
-    // The core function to fetch and update the table
-    const updateTable = () => {
-        // Show a loading indicator
-        tableContentWrapper.innerHTML = '<div class="d-flex justify-content-center align-items-center p-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>';
-        
-        const formData = new FormData(filterForm);
-        const params = new URLSearchParams(formData);
-        
-        // Add search term to parameters
-        if (searchBox.value) {
-            params.append('search', searchBox.value);
+$(document).ready(function() {
+
+    // --- Custom Date Range Filtering Function ---
+    $.fn.dataTable.ext.search.push(
+        function(settings, data, dataIndex) {
+            var min = $('#dateFromFilter').val();
+            var max = $('#dateToFilter').val();
+            // Use data from the 'Date From' column (index 3). Adjust if your column order changes.
+            var date = data[3] || 0; 
+            
+            return (min === "" && max === "") || (min === "" && date <= max) || (min <= date && max === "") || (min <= date && date <= max);
         }
+    );
 
-        const url = `/records/?${params.toString()}`;
-        
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
+    // --- Initialize the DataTable ---
+    var table = $('#activities-table').DataTable({
+        // Make the table responsive
+        responsive: true,
+
+        // Re-arrange the table controls for a cleaner look
+        dom:  "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" + // Length menu and global search
+              "<'row'<'col-sm-12'tr>>" + // The table itself
+              "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>" + // Info and pagination
+              "<'row'<'col-sm-12 mt-3'B>>", // Buttons at the bottom
+
+        // Configure the Buttons extension (Column Visibility, Export, etc.)
+        buttons: [
+            {
+                extend: 'colvis',
+                className: 'btn btn-outline-secondary btn-sm',
+                text: '<i class="fa-solid fa-eye me-2"></i>Show/Hide Columns'
             },
-        })
-        .then(response => response.text())
-        .then(html => {
-            tableContentWrapper.innerHTML = html;
-        })
-        .catch(error => {
-            console.error('Error fetching table data:', error);
-            tableContentWrapper.innerHTML = '<div class="alert alert-danger">Failed to load data. Please try again.</div>';
-        });
-    };
+            // You can add export buttons here if needed:
+            // { extend: 'excel', className: 'btn btn-outline-success btn-sm', text: 'Export to Excel' }
+        ],
 
-    // --- Event Listeners ---
+        // Default sort by ID descending (newest first)
+        "order": [[ 0, "desc" ]],
 
-    // Handle form submission (clicking the "Apply" button)
-    filterForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        updateTable();
+        // Define properties for specific columns
+        "columnDefs": [
+            { "orderable": false, "searchable": false, "targets": -1 }, // Disable sort/search on Actions column
+            { "className": "text-center", "targets": 6 } // Center the 'Proof?' column content
+        ]
     });
+
+    // --- Link Filter Panel Controls to the DataTable ---
+    function applyFilter(columnIndex, value, isExact = false) {
+        table.column(columnIndex).search(isExact ? `^${value}$` : value, isExact, !isExact).draw();
+    }
     
-    // Handle real-time search with debouncing to avoid excessive requests
-    searchBox.addEventListener('keyup', () => {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-            updateTable();
-        }, 500); // Wait 500ms after user stops typing
+    $('#idFilter').on('keyup change', function() { applyFilter(0, this.value); });
+    $('#titleFilter').on('keyup change', function() { applyFilter(1, this.value); });
+    $('#strategyFilter').on('change', function() { applyFilter(2, this.value, true); });
+    $('#fundingAgencyFilter').on('change', function() { applyFilter(5, this.value, true); });
+    $('#proofFilter').on('change', function() { applyFilter(6, this.value, true); });
+    $('#userFilter').on('change', function() { applyFilter(7, this.value, true); });
+    $('#dateFromFilter, #dateToFilter').on('change', () => table.draw());
+
+    // --- Clear All Filters Button ---
+    $('#clearAllFiltersBtn').on('click', function() {
+        $('#filters-panel input, #filters-panel select').val('');
+        table.search('').columns().search('').draw();
     });
 
-    // Handle pagination clicks using event delegation
-    tableContentWrapper.addEventListener('click', (e) => {
-        if (e.target.matches('.page-link') && e.target.dataset.page) {
-            e.preventDefault();
-            const page = e.target.dataset.page;
-            
-            // Get current filters and append the new page number
-            const formData = new FormData(filterForm);
-            const params = new URLSearchParams(formData);
-            if (searchBox.value) {
-                params.append('search', searchBox.value);
-            }
-            params.set('page', page); // Set the clicked page number
+    // --- Handle Clicks on Action Buttons in the Dropdown ---
+    $('#activities-table tbody').on('click', 'a.action-view', function() {
+        var activityId = $(this).data('activity-id');
+        alert('View Details for Activity ID: ' + activityId);
+        // Here you would trigger a modal or navigate to a detail page
+    });
 
-            const url = `/records/?${params.toString()}`;
-            
-            // Fetch the specific page
-            fetch(url, { headers: {'X-Requested-With': 'XMLHttpRequest'} })
-                .then(response => response.text())
-                .then(html => tableContentWrapper.innerHTML = html);
-        }
+    $('#activities-table tbody').on('click', 'a.action-edit', function() {
+        var activityId = $(this).data('activity-id');
+        alert('Edit Activity ID: ' + activityId);
+        // Here you would navigate to the edit form for this activity
+    });
 
-        // Handle delete button click
-        if (e.target.closest('.btn-outline-danger[data-id]')) {
-             const deleteButton = e.target.closest('.btn-outline-danger[data-id]');
-             const activityId = deleteButton.dataset.id;
-             if (confirm(`Are you sure you want to delete activity #${activityId}?`)) {
-                 // In a real app, you would send a DELETE request here
-                 alert(`DELETE request for activity ${activityId} would be sent here.`);
-                 // Example: fetch(`/api/activity/${activityId}`, { method: 'DELETE' }).then(() => updateTable());
-             }
+    $('#activities-table tbody').on('click', 'a.action-delete', function() {
+        var activityId = $(this).data('activity-id');
+        if (confirm('Are you sure you want to delete Activity ID: ' + activityId + '?')) {
+            alert('Deleting Activity ID: ' + activityId);
+            // Here you would make an AJAX call to your Django delete view
         }
     });
 });

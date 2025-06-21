@@ -1,93 +1,130 @@
-
+{% extends 'myapp/base.html' %}
 {% load static %}
 
 {% block content %}
-<div class="container my-4">
-    <div class="card shadow-sm">
-        <div class="card-header bg-light">
-            <h3 class="h5 mb-0 fw-bold text-dark"><i class="fa-solid fa-file-pen me-2"></i>Submit Daily Activity Report</h3>
-        </div>
-        <div class="card-body p-4">
-            <!-- The form tag MUST have these attributes for file uploads to work -->
-            <form method="POST" enctype="multipart/form-data" novalidate>
-                <!-- Django's Cross-Site Request Forgery protection token. REQUIRED. -->
-                {% csrf_token %}
 
-                <!-- User Info (Now dynamic) -->
-                <div class="d-flex align-items-center gap-3 mb-4 p-3 bg-light rounded">
+<div class="container-fluid p-4">
+    <!-- The form tag wraps the entire card -->
+    <form method="POST" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        <div class="card shadow-sm border-0">
+            <!-- 1. REDESIGNED HEADER -->
+            <div class="card-header bg-white border-bottom p-4">
+                <h3 class="fw-bold mb-1"><i class="fa-solid fa-file-pen me-2 text-primary"></i>Submit Daily Activity Report</h3>
+                <p class="text-muted mb-0">Fill in all the required fields below to complete your submission.</p>
+            </div>
+
+            <div class="card-body p-4">
+                <!-- 2. USER INFO BLOCK -->
+                <!-- A clean, bordered block to introduce the user -->
+                <div class="d-flex align-items-center gap-3 mb-4 p-3 bg-light-subtle border rounded">
                     <img src="{% static 'myapp/images/wesmaarrdec.png' %}" alt="User" class="rounded-circle" width="50" height="50">
                     <div>
-                        <h5 class="mb-0 text-dark fw-semibold">{{ request.user.get_full_name|default:request.user.username }}</h5>
+                        <h6 class="mb-0 fw-bold">{{ request.user.get_full_name|default:request.user.username }}</h6>
                         <small class="text-muted">Submitting as: {{ request.user.email }}</small>
                     </div>
                 </div>
 
-                <!-- Strategy Section -->
-                <div class="mb-4">
-                    <h6 class="mb-3 text-primary fw-semibold"><i class="fa-solid fa-lightbulb me-2"></i>Strategy Information</h6>
-                    <div class="mb-3">
-                        <label for="{{ form.strategy_name.id_for_label }}" class="form-label">Strategy Name</label>
-                        {{ form.strategy_name }}
-                        {{ form.strategy_name.errors }}
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="{{ form.date_from.id_for_label }}" class="form-label">Date From</label>
-                            {{ form.date_from }}
-                            {{ form.date_from.errors }}
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="{{ form.date_to.id_for_label }}" class="form-label">Date To</label>
-                            {{ form.date_to }}
-                            {{ form.date_to.errors }}
-                        </div>
-                    </div>
+                <!-- 3. STRATEGY SECTION -->
+                <!-- Fields are grouped logically with a clear header -->
+                <h5 class="fw-semibold mb-3">Strategy Information</h5>
+                <div class="mb-3">
+                    <label for="{{ form.strategy_name.id_for_label }}" class="form-label">Strategy Name</label>
+                    {{ form.strategy_name }}
+                    <div class="invalid-feedback d-block">{{ form.strategy_name.errors|first }}</div>
                 </div>
-
-                <!-- Activity Section -->
-                <div class="mb-4">
-                    <h6 class="mb-3 text-success fw-semibold"><i class="fa-solid fa-calendar-check me-2"></i>Activity Details</h6>
-                    <div class="mb-3">
-                        <label for="{{ form.activity_title.id_for_label }}" class="form-label">Activity Title</label>
-                        {{ form.activity_title }}
-                        {{ form.activity_title.errors }}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="{{ form.date_from.id_for_label }}" class="form-label">Date From</label>
+                        {{ form.date_from }}
+                        <div class="invalid-feedback d-block">{{ form.date_from.errors|first }}</div>
                     </div>
-                    <div class="mb-3">
-                        <label for="{{ form.description.id_for_label }}" class="form-label">Activity Description</label>
-                        {{ form.description }}
-                        {{ form.description.errors }}
+                    <div class="col-md-6 mb-3">
+                        <label for="{{ form.date_to.id_for_label }}" class="form-label">Date To</label>
+                        {{ form.date_to }}
+                        <div class="invalid-feedback d-block">{{ form.date_to.errors|first }}</div>
                     </div>
                 </div>
 
-                <!-- Additional Info -->
-                <div class="mb-4">
-                    <h6 class="mb-3 text-info fw-semibold"><i class="fa-solid fa-sitemap me-2"></i>Agency & Participant Information</h6>
-                    <div class="row g-3">
-                        <div class="col-md-6">{{ form.funding_agency }}</div>
-                        <div class="col-md-6">{{ form.implementing_agency }}</div>
-                        <div class="col-md-6">{{ form.collaborating_agency }}</div>
-                        <div class="col-md-6">{{ form.sponsored_by }}</div>
-                        <div class="col-md-6">{{ form.facilitated_by }}</div>
-                        <div class="col-md-6">{{ form.participants }}</div>
-                    </div>
+                <hr class="my-4">
+
+                <!-- 4. ACTIVITY DETAILS SECTION -->
+                <h5 class="fw-semibold mb-3">Activity Details</h5>
+                <div class="mb-3">
+                    <label for="{{ form.activity_title.id_for_label }}" class="form-label">Activity Title</label>
+                    {{ form.activity_title }}
+                    <div class="invalid-feedback d-block">{{ form.activity_title.errors|first }}</div>
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.description.id_for_label }}" class="form-label">Activity Description</label>
+                    {{ form.description }}
+                    <div class="invalid-feedback d-block">{{ form.description.errors|first }}</div>
                 </div>
 
-                <!-- Upload Section -->
-                <div class="mb-4">
-                    <h6 class="mb-3 text-danger fw-semibold"><i class="fa-solid fa-image me-2"></i>Upload Proof</h6>
-                    <label for="{{ form.proof_image.id_for_label }}" class="form-label">Proof of Activity (Image)</label>
-                    {{ form.proof_image }}
-                    {{ form.proof_image.errors }}
+                <hr class="my-4">
+                
+                <!-- 5. AGENCY & PARTICIPANT SECTION -->
+                <!-- A much cleaner grid layout with proper labels for each field -->
+                <h5 class="fw-semibold mb-3">Agency & Participant Information</h5>
+                <div class="row g-3">
+                    <div class="col-md-6"><label class="form-label">Funding Agency</label>{{ form.funding_agency }}</div>
+                    <div class="col-md-6"><label class="form-label">Implementing Agency</label>{{ form.implementing_agency }}</div>
+                    <div class="col-md-6"><label class="form-label">Collaborating Agency</label>{{ form.collaborating_agency }}</div>
+                    <div class="col-md-6"><label class="form-label">Sponsored By</label>{{ form.sponsored_by }}</div>
+                    <div class="col-md-6"><label class="form-label">Facilitated By</label>{{ form.facilitated_by }}</div>
+                    <div class="col-md-6"><label class="form-label">Participants</label>{{ form.participants }}</div>
                 </div>
 
-                <!-- Submit -->
-                <div class="text-end border-top pt-3">
-                    <button type="submit" class="btn btn-primary px-4">
-                        <i class="fa-solid fa-paper-plane me-2"></i>Submit Report
-                    </button>
+                <hr class="my-4">
+
+                <!-- 6. UPLOAD SECTION -->
+                <!-- A modern drag-and-drop style file input -->
+                <h5 class="fw-semibold mb-3">Upload Proof</h5>
+                <label class="form-label">Proof of Activity (Image)</label>
+                <div class="file-upload-wrapper text-center p-5 bg-light-subtle border-dashed rounded">
+                    <i class="fa-solid fa-cloud-arrow-up fa-3x text-muted mb-3"></i>
+                    <p class="mb-1">Drag & drop your file here or</p>
+                    <label for="{{ form.proof_image.id_for_label }}" class="btn btn-sm btn-outline-primary">Browse Files</label>
+                    <p id="fileName" class="text-muted small mt-2"></p>
+                    {{ form.proof_image }} <!-- This input is visually hidden but functional -->
                 </div>
-            </form>
+                <div class="invalid-feedback d-block">{{ form.proof_image.errors|first }}</div>
+            </div>
+
+            <!-- 7. REDESIGNED FOOTER / SUBMIT AREA -->
+            <div class="card-footer bg-white p-3 text-end">
+                <button type="submit" class="btn btn-primary btn-lg px-4">
+                    <i class="fa-solid fa-paper-plane me-2"></i>Submit Report
+                </button>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
+
+<!-- Add custom CSS for the file uploader -->
+<style>
+    .border-dashed { border: 2px dashed #dee2e6; }
+    .file-upload-wrapper input[type="file"] { display: none; }
+</style>
+</body>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Handle file input display to show the selected file name
+    const fileInput = document.getElementById('{{ form.proof_image.id_for_label }}');
+    const fileNameDisplay = document.getElementById('fileName');
+    
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                fileNameDisplay.textContent = 'Selected: ' + this.files[0].name;
+            } else {
+                fileNameDisplay.textContent = '';
+            }
+        });
+    }
+});
+</script>
 {% endblock %}

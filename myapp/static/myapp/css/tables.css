@@ -1,84 +1,155 @@
+/* myapp/css/tables.css */
 
-    :root {
-      --primary-dark: hsl(222.2, 84%, 4.9%);
-      --primary-light: hsl(210, 20%, 98%); 
-      --gray-light: hsl(214.3, t31.8%, 91.4%);
-      --gray-medium: hsl(210, 40%, 96.1%);
-    }
+/* --- 1. CORE COLOR & DESIGN SYSTEM --- */
+:root {
+  /* Your original color palette - it's great! */
+  --primary-dark: hsl(222.2, 84%, 4.9%);
+  --primary-light: hsl(210, 20%, 98%); 
+  --gray-light: hsl(214.3, 31.8%, 91.4%);
+  --gray-medium: hsl(210, 40%, 96.1%);
+  
+  /* ADDED: Semantic colors for status badges */
+  --success-text: hsl(145, 63%, 32%);
+  --success-bg: hsl(145, 75%, 95%);
+  --danger-text: hsl(0, 72%, 41%);
+  --danger-bg: hsl(0, 80%, 96%);
+}
 
-    .btn-primary-custom {
-      background-color: var(--primary-dark);
-      color: var(--primary-light);
-      font-weight: 500;
-      gap: 0.5rem;
-      border-color: var(--primary-dark); /* Ensure border matches background */
-    }
-    .btn-primary-custom:hover {
-      background-color: hsla(222.2, 84%, 4.9%, 0.9);
-      border-color: hsla(222.2, 84%, 4.9%, 0.9);
-    }
+/* --- 2. GENERAL TABLE STYLING --- */
+/* This is the main container for the table and its controls */
+.dataTables_wrapper {
+  font-size: 0.9rem; /* A slightly smaller base font for a denser UI */
+}
 
-    .btn-outline-custom {
-      color: var(--primary-dark);
-      border-color: var(--gray-light);
-      font-weight: 500;
-    }
-    .btn-outline-custom:hover {
-      background-color: var(--gray-medium);
-      color: var(--primary-dark);
-      border-color: var(--gray-medium); /* Ensure border matches background on hover */
-    }
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
 
-    .form-control-custom:focus {
-      border-color: var(--primary-dark);
-      box-shadow: 0 0 0 0.2rem rgba(39, 39, 42, 0.25);
-    }
+/* Redesigned Table Header */
+.table thead th {
+  background-color: var(--gray-medium);
+  color: #343a40; /* Darker text for better contrast */
+  font-weight: 600;
+  border-bottom: 2px solid var(--gray-light);
+  white-space: nowrap; /* Prevent headers from wrapping */
+  vertical-align: middle;
+}
 
-    .table thead {
-      background-color: var(--gray-medium);
-    }
+/* Redesigned Table Body & Hover State */
+/* We remove default striping for a cleaner hover effect */
+.table.table-striped tbody tr:nth-of-type(odd) {
+  background-color: transparent;
+}
+.table-hover tbody tr:hover {
+  background-color: var(--primary-light); /* Subtle hover for the whole row */
+  cursor: pointer;
+}
+.table td {
+  padding: 0.8rem 1rem;
+  vertical-align: middle;
+}
 
-    .table-hover tbody tr:hover {
-      background-color: var(--gray-medium);
-    }
+/* --- 3. CELL-SPECIFIC & COMPONENT STYLING --- */
 
-    .card-custom {
-      border: 1px solid var(--gray-light);
-      border-radius: 0.5rem; /* Slightly rounded corners */
-    }
+/* Primary Info Cell (e.g., Activity Title) */
+.td-main .title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--primary-dark);
+  display: block; /* Ensure it takes its own line */
+}
+.td-main .subtitle {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
 
-    .card-header {
-      border-bottom: 1px solid var(--gray-light);
-      border-top-left-radius: 0.5rem;
-      border-top-right-radius: 0.5rem;
-    }
+/* Custom Status Badges (to replace Bootstrap's) */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25em 0.6em;
+  font-weight: 600;
+  border-radius: 20px;
+}
+.badge-status.success {
+  color: var(--success-text);
+  background-color: var(--success-bg);
+}
+.badge-status.danger {
+  color: var(--danger-text);
+  background-color: var(--danger-bg);
+}
 
-    .pagination .page-link {
-      color: var(--primary-dark);
-      font-weight: 500;
-      border-radius: 0.375rem;
-    }
-    .pagination .page-item.active .page-link {
-      background-color: var(--primary-dark);
-      border-color: var(--primary-dark);
-      color: #fff;
-    }
-    .pagination .page-item.disabled .page-link {
-      color: #aaa;
-    }
+/* Enhanced Action Button (Kebab Menu) */
+.table .btn-actions {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #6c757d;
+  padding: 0.2rem 0.5rem;
+}
+.table .btn-actions:hover,
+.table .btn-actions:focus {
+  background-color: var(--gray-medium);
+  border-color: var(--gray-light);
+  color: var(--primary-dark);
+}
+.table .dropdown-menu {
+  border: 1px solid var(--gray-light);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.table .dropdown-item {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
 
-    /* Custom styles for the collapsible rows */
-    .accordion-toggle i.bi-chevron-down {
-        transition: transform 0.3s ease;
-    }
+/* --- 4. DATATABLES CONTROLS STYLING --- */
 
-    .accordion-toggle[aria-expanded="true"] i.bi-chevron-down {
-        transform: rotate(180deg);
-    }
+/* Search Box & Length Menu */
+.dataTables_wrapper .form-control,
+.dataTables_wrapper .form-select {
+  border-color: var(--gray-light);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.dataTables_wrapper .form-control:focus,
+.dataTables_wrapper .form-select:focus {
+  border-color: var(--primary-dark);
+  box-shadow: 0 0 0 0.2rem hsla(222, 84%, 5%, 0.1);
+}
 
-    .expanded-details {
-        border-top: 1px solid var(--gray-light);
-        background-color: #f8f9fa; /* Lighter background for details */
-        border-bottom-left-radius: 0.5rem;
-        border-bottom-right-radius: 0.5rem;
-    }
+/* DataTables Buttons (e.g., Show/Hide Columns) */
+.dt-buttons .btn {
+  background-color: #fff;
+  border: 1px solid var(--gray-light);
+  color: var(--primary-dark);
+  font-weight: 500;
+}
+.dt-buttons .btn:hover {
+  background-color: var(--gray-medium);
+  border-color: var(--gray-light);
+}
+
+/* Pagination */
+.pagination .page-link {
+  color: var(--primary-dark);
+  font-weight: 500;
+  border-radius: 0.375rem;
+  border-color: transparent;
+  margin: 0 2px;
+}
+.pagination .page-item.active .page-link {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.pagination .page-item.disabled .page-link {
+  color: #aaa;
+}
+.pagination .page-link:hover {
+  background-color: var(--gray-medium);
+}
+.pagination .page-item.active .page-link:hover {
+  background-color: var(--primary-dark);
+}

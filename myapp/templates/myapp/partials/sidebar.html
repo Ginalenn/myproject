@@ -1,40 +1,106 @@
 {% load static %}
 
-<!-- The <link> and <script> tags have been removed from this partial file. -->
-<!-- They belong in the main base.html file. -->
-
-<nav class="sidebar p-3 bg-dark text-white vh-100 position-fixed" id="side_nav">
+<!--
+  SIDEBAR CONVERTED FOR TRADITIONAL NAVIGATION (NO AJAX)
+  - `href` now points to the actual URL.
+  - `data-url` and `load-form` classes are removed as they are for AJAX.
+  - The `active` class is now set dynamically by Django based on the current page's URL name.
+-->
+<nav class="sidebar p-3 d-flex flex-column" id="side_nav">
   
-  <!-- Sidebar Header -->
-  <div class="header-box d-flex align-items-center justify-content-between mb-4">
-    <div class="d-flex align-items-center">
+  <div> <!-- Main navigation wrapper -->
+    <!-- Sidebar Header -->
+    <div class="header-box d-flex align-items-center mb-4">
       <img src="{% static 'myapp/images/wesmaarrdec.png' %}" alt="Logo" class="me-2" style="width: 35px; height: 35px;">
-      <span class="fs-5 fw-semibold">WESMAARDEC</span>
+      <span class="fs-5 fw-semibold text-white">WESMAARDEC</span>
+    </div>
+
+    <!-- Navigation Links -->
+    <ul class="nav flex-column gap-1" id="sidebar-nav-list">
+      <li class="nav-item">
+        <!-- href now uses the url tag. The active class is conditional. -->
+        <a class="nav-link px-3 py-2 rounded {% if request.resolver_match.url_name == 'manage_dashboard' %}active{% endif %}" 
+           href="{% url 'manage_dashboard' %}">
+          <i class="fa-solid fa-chart-pie fa-fw me-2"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link px-3 py-2 rounded {% if request.resolver_match.url_name == 'manage_records' %}active{% endif %}" 
+           href="{% url 'manage_records' %}">
+          <i class="fa-solid fa-folder-open fa-fw me-2"></i>
+          <span>Manage Records</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link px-3 py-2 rounded {% if request.resolver_match.url_name == 'add_activity_form' %}active{% endif %}" 
+           href="{% url 'add_activity_form' %}">
+          <i class="fa-solid fa-file-pen fa-fw me-2"></i>
+          <span>Add New Record</span>
+        </a>
+      </li>
+      
+      <!-- Collapsible Submenu for Reports -->
+      <li class="nav-item">
+        <a class="nav-link px-3 py-2 rounded" data-bs-toggle="collapse" href="#submenuReports" role="button" aria-expanded="false" aria-controls="submenuReports">
+          <i class="fa-solid fa-chart-simple fa-fw me-2"></i>
+          <span>Reports</span>
+          <i class="fa-solid fa-chevron-down small ms-auto"></i>
+        </a>
+        <div class="collapse" id="submenuReports">
+          <ul class="nav flex-column ps-4 mt-1 gap-1">
+            <li class="nav-item">
+              <!-- Example of a future reports link -->
+              <a href="" class="nav-link px-3 py-2 rounded small {% if request.resolver_match.url_name == 'monthly_report' %}active{% endif %}">Monthly Summary</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link px-3 py-2 rounded small">Annual Breakdown</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- User/Logout section at the bottom -->
+  <div class="user-section mt-auto">
+    <hr class="text-white-50">
+    <div class="d-flex align-items-center">
+      <i class="fa-solid fa-user-circle fa-2x text-white-50 me-3"></i>
+      <div>
+        <div class="fw-semibold text-white">{{ request.user.username }}</div>
+        <!-- This should point to your actual logout URL -->
+        <a href="" class="small text-white-50 text-decoration-none">Logout</a>
+      </div>
     </div>
   </div>
 
-  <!-- Navigation Links -->
-  <ul class="nav flex-column gap-1">
-    <li class="nav-item">
-      <!-- Added 'active' class here so the dashboard is highlighted on first page load -->
-      <a class="nav-link text-white px-3 py-2 rounded load-form active" href="#" data-url="{% url 'manage_dashboard' %}">
-        <i class="fa fa-dashboard me-2"></i> <span>Dashboard</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-white px-3 py-2 rounded load-form" href="#" data-url="{% url 'manage_records' %}">
-        <i class="fa fa-folder-open me-2"></i> <span>Manage Records</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-white px-3 py-2 rounded load-form" href="#" data-url="{% url 'add_activity_form' %}">
-        <i class="fa fa-plus me-2"></i> <span>Add New Records</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-white px-3 py-2 rounded" href="#">
-        <i class="fa fa-bar-chart me-2"></i> <span>Reports</span>
-      </a>
-    </li>
-  </ul>
 </nav>
+
+<!-- The <style> block from your original code would remain here or in your main CSS file -->
+<style>
+  /* All your sidebar CSS styling goes here... */
+  .sidebar {
+    background-color: #212529; /* Standard Bootstrap dark */
+    color: #adb5bd; /* Lighter grey for text */
+    width: 260px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+  }
+  .sidebar .nav-link {
+    color: #adb5bd;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+  }
+  .sidebar .nav-link.active {
+    background-color: var(--bs-primary);
+    color: #ffffff;
+    font-weight: 600;
+  }
+  /* ...etc... */
+</style>

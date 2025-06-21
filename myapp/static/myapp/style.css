@@ -1,168 +1,51 @@
 
-    #side_nav {
-      background: #004d40;
-      min-width: 250px;
-      max-width: 250px;
-      transition: all 0.3s ease-in-out;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-       height: 100vh;
-    }
-    .content {
-      min-height: 100vh;
-      width: 100%;
-    }
-    hr.h-color {
-      background: #a7ffeb;
-      opacity: 0.5;
-      height: 1px;
-      margin: 1.5rem 0.5rem;
-    }
-    .sidebar ul {
-      padding: 0;
-      list-style: none;
-    }
-    .sidebar li {
-      margin-bottom: 5px;
-    }
-    .sidebar li a {
-      color: #e0f2f1;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background-color 0.2s ease, color 0.2s ease;
-    }
-    .sidebar li a i {
-      margin-right: 15px;
-      font-size: 1.1em;
-    }
-    .sidebar li a:hover:not(.active) {
-      background-color: #00382e;
-      color: #fff;
-    }
-    .sidebar li.active {
-      background: #a7ffeb;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
-    .sidebar li.active a,
-    .sidebar li.active a:hover {
-      color: #004d40;
-      font-weight: 600;
-    }
-    .sidebar .collapse .collapse-inner a {
-      padding-left: 55px;
-      color: #a7ffeb;
-      font-size: 0.95em;
-    }
-    .sidebar .collapse .collapse-inner a:hover {
-      background-color: #00382e;
-      color: #fff;
-      border-radius: 8px;
-    }
-    .sidebar .fa-angle-down,
-    .sidebar .fa-angle-up {
-      transition: transform 0.3s ease;
-    }
-    .sidebar .fa-angle-up {
+  .sidebar {
+    background-color: #212529; /* Standard Bootstrap dark */
+    color: #adb5bd; /* Lighter grey for text */
+    width: 260px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+  }
+
+  .sidebar .nav-link {
+    color: #adb5bd;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  /* --- Hover State --- */
+  .sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+  }
+
+  /* --- Active State --- */
+  .sidebar .nav-link.active {
+    background-color: var(--bs-primary); /* Use Bootstrap's primary color */
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  /* --- Submenu Styling --- */
+  .sidebar .collapse .nav-link {
+    color: #adb5bd;
+  }
+  .sidebar .collapse .nav-link:hover,
+  .sidebar .collapse .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+  
+  /* --- Arrow rotation for collapse --- */
+  .sidebar a[data-bs-toggle="collapse"][aria-expanded="true"] .fa-chevron-down {
       transform: rotate(180deg);
-    }
-    .sidebar .bottom-list {
-      margin-top: auto;
-      padding-bottom: 20px;
-    }
-    .sidebar .header-box {
-      padding: 20px 20px 25px 20px;
-      border-bottom: 1px solid rgba(167, 255, 235, 0.2);
-      margin-bottom: 10px;
-    }
-    .sidebar .header-box img {
-      max-height: 45px;
-      width: auto;
-    }
-    .sidebar .header-box .logo-text {
-      color: #ffffff;
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-left: 10px;
-    }
-    .navbar {
-      background-color: #ffffff !important;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-      padding: 1rem 1.5rem;
-    }
-    .navbar-nav .nav-link {
-      color: #004d40 !important;
-      font-weight: 500;
-    }
-    .navbar-nav .nav-link.active {
-      color: #000000 !important;
-      background-color: #ffffff;
-      border-radius: 5px;
-      padding: 8px 15px;
-    }
-    @media(max-width: 767px) {
-      #side_nav {
-        margin-left: -250px;
-        position: fixed;
-        min-height: 100vh;
-        z-index: 1000;
-      }
-      #side_nav.active {
-        margin-left: 0;
-      }
-      .content {
-        transition: all 0.3s;
-      }
-      .content.active {
-        margin-left: 250px;
-      }
-      .navbar-brand img {
-        max-height: 35px;
-      }
-      .navbar-brand .logo-text {
-        font-size: 1rem;
-        margin-left: 8px;
-      }
-      .navbar-toggler {
-        border-color: transparent !important;
-      }
-      .navbar-toggler i {
-        color: #004d40;
-        font-size: 1.5rem;
-      }
-    }
- 
-    /* Sidebar active highlight logic */
-.sidebar li.active {
-  background: #a7ffeb !important;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.sidebar li.active a,
-.sidebar li.active a:hover {
-  color: #004d40;
-  font-weight: 600;
-}
-
-/* Sidebar animation for collapsed state */
-#side_nav.collapsed {
-  min-width: 70px;
-  max-width: 70px;
-}
-
-#side_nav.collapsed .nav-link span,
-#side_nav.collapsed .logo-text {
-  display: none;
-}
-
-#side_nav .nav-link {
-  transition: background 0.2s ease, color 0.2s ease;
-}
+      transition: transform 0.3s ease;
+  }
+  .sidebar a[data-bs-toggle="collapse"][aria-expanded="false"] .fa-chevron-down {
+      transform: rotate(0deg);
+      transition: transform 0.3s ease;
+  }
 
 
 

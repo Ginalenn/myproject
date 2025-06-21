@@ -6,5 +6,5 @@ urlpatterns = [
     path('records/', views.manage_records_view, name='manage_records'),
     path('add-activity/', views.add_activity_form_view, name='add_activity_form'),
     path('edit-activity/', views.edit_activity_form_view, name='edit_activity_form'),
-
 ]
+

@@ -1,41 +1,30 @@
+# myapp/forms.py
 from django import forms
 from .models import Activity
 
 class ActivityForm(forms.ModelForm):
     class Meta:
         model = Activity
-        # List all fields from the model that you want in the form
+        # List all the fields from your model that you want in the form
         fields = [
             'strategy_name', 'date_from', 'date_to',
             'activity_title', 'description',
             'funding_agency', 'implementing_agency', 'collaborating_agency',
-            'sponsored_by', 'facilitated_by', 'participants',
-            'proof_image'
+            'sponsored_by', 'facilitated_by', 'participants', 'proof_image'
         ]
-        # Optional: Customize widgets, like making date fields use the date picker
-        widgets = {
-            'date_from': forms.DateInput(attrs={'type': 'date'}),
-            'date_to': forms.DateInput(attrs={'type': 'date'}),
-            'description': forms.Textarea(attrs={'rows': 4}),
-        }
 
-    def __init__(self, *args, **kwargs):
-        """
-        Add Bootstrap's 'form-control' class and placeholders to each field.
-        """
-        super().__init__(*args, **kwargs)
-        placeholders = {
-            'strategy_name': 'e.g. Youth Empowerment Program',
-            'activity_title': 'e.g. Barangay Cleanup Drive',
-            'description': 'Describe the activity...',
-            'funding_agency': 'Funding Agency',
-            'implementing_agency': 'Implementing Agency',
-            'collaborating_agency': 'Collaborating Agency',
-            'sponsored_by': 'Sponsored By',
-            'facilitated_by': 'Facilitated By',
-            'participants': 'e.g. 50 Barangay Youth',
+        # Add Bootstrap classes to the form fields for styling using widgets
+        widgets = {
+            'strategy_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'date_from': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'date_to': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'activity_title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'funding_agency': forms.TextInput(attrs={'class': 'form-control'}),
+            'implementing_agency': forms.TextInput(attrs={'class': 'form-control'}),
+            'collaborating_agency': forms.TextInput(attrs={'class': 'form-control'}),
+            'sponsored_by': forms.TextInput(attrs={'class': 'form-control'}),
+            'facilitated_by': forms.TextInput(attrs={'class': 'form-control'}),
+            'participants': forms.TextInput(attrs={'class': 'form-control'}),
+            'proof_image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-            if field_name in placeholders:
-                field.widget.attrs['placeholder'] = placeholders[field_name]
