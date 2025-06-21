@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --primary-color: #00660f; /* A modern blue, similar to Bootstrap's primary */
+    --primary-color: #00660f; 
     --primary-hover-color: #138d3e;
     --secondary-color: #6c757d;
     --background-color: #f0f2f5;
