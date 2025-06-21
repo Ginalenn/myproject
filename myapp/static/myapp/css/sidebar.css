@@ -106,7 +106,7 @@
   color: #000000;
 }
 
-/* Elegant active state indicator */
+/* Elegant active state indiScator */
 .sidebar-nav .nav-link.active {
   color: var(--sidebar-link-active-color);
   background-color: var(--sidebar-link-active-bg);
@@ -189,4 +189,59 @@
 }
 .user-section .user-info .role {
   font-size: 0.8rem;
+}
+
+
+/* myapp/static/myapp/css/sidebar.css */
+
+/* --- 8. RESPONSIVE - MOBILE OFF-CANVAS DESIGN --- */
+/* This block applies only to screens smaller than 992px */
+
+@media (max-width: 991.98px) {
+  /* Hide the desktop sidebar by pushing it off-screen */
+  .sidebar {
+    margin-left: -var(--sidebar-width);
+  }
+  
+  /* When the mobile menu is opened, slide it back into view */
+  .sidebar.is-open {
+    margin-left: 0;
+    box-shadow: 0 0 1rem rgba(0,0,0,0.2);
+  }
+
+  /* The desktop "collapsed" state is irrelevant on mobile, so we override it */
+  .sidebar.collapsed {
+    margin-left: -var(--sidebar-width);
+  }
+  .sidebar.collapsed.is-open {
+    margin-left: 0;
+  }
+
+  /* Force the main content to always be full-width on mobile */
+  /* The !important is necessary here to override the inline style added by JS for the desktop view */
+  .content {
+    margin-left: 0 !important;
+  }
+  .content.expanded {
+    margin-left: 0 !important;
+  }
+  
+  /* --- Overlay Styling --- */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1029; /* Just below the sidebar's z-index */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  }
+  
+  .sidebar-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
 }

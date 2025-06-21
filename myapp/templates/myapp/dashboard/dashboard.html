@@ -4,13 +4,16 @@
 {% block title %}Dashboard - WESMAARDEC{% endblock %}
 
 {% block content %}
-
+<!-- 
+  NOTE: The outer container div has been removed. 
+  The main layout wrapper should be in base.html.
+-->
 <div class="container-fluid p-4">
 
   <!-- 1. HEADER SECTION -->
-  <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3 ">
+  <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
     <div>
-      <h2 class="fw-bold display-6 text-dark mb-1">Dashboard</h2>
+      <h6 class="fw-bold display-6 text-dark mb-1">Dashboard</h6>
       <p class="text-muted mb-0">An overview of key performance indicators and trends.</p>
     </div>
     <div class="d-flex align-items-center gap-2">

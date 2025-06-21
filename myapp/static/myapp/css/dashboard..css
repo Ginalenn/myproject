@@ -1,0 +1,133 @@
+/* myapp/static/myapp/css/dashboard.css */
+
+/* --- 1. Global Dashboard Theme --- */
+:root {
+  --primary-blue: #0d6efd;
+  --primary-blue-bg: rgba(13, 110, 253, 0.1);
+  --success-green: #198754;
+  --success-green-bg: rgba(25, 135, 84, 0.1);
+  --warning-yellow: #ffc107;
+  --text-primary-dark: #212529;
+  --text-muted-light: #6c757d;
+  --stat-change-green: #16a34a;
+  --stat-change-red: #dc2626;
+  --border-color-soft: #dee2e6;
+  --sidebar-bg: #0b3d1b;
+}
+
+/* --- 2. Main Content Header --- */
+.page-header-wrapper {
+  border-bottom: 1px solid var(--border-color-soft);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+.page-header-wrapper h2 {
+  font-weight: 600;
+  font-size: 2rem;
+  color: var(--text-primary-dark);
+}
+.page-header-wrapper p {
+  color: var(--text-muted-light);
+}
+.page-header-wrapper .btn-primary {
+  background-color: var(--primary-blue);
+  border-color: var(--primary-blue);
+}
+
+/* --- 3. NEW Stat Card Design (No traditional "card") --- */
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.stat-item .icon {
+  font-size: 1.25rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stat-item .icon.icon-primary { background-color: var(--primary-blue-bg); color: var(--primary-blue); }
+.stat-item .icon.icon-success { background-color: var(--success-green-bg); color: var(--success-green); }
+
+.stat-item .stat-content .label {
+  color: var(--text-muted-light);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.stat-item .stat-content .value {
+  font-size: 2.25rem;
+  font-weight: 600;
+  color: var(--text-primary-dark);
+  line-height: 1.1;
+}
+.stat-item .stat-content .change { font-weight: 500; }
+.stat-item .stat-content .change.up { color: var(--stat-change-green); }
+.stat-item .stat-content .change.down { color: var(--stat-change-red); }
+.stat-item .stat-content .change.neutral { color: var(--text-muted-light); }
+
+/* --- 4. Chart & Data List Cards --- */
+.data-card {
+  border: 1px solid #e9ecef;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  display: flex;
+  flex-direction: column;
+}
+.data-card .card-header {
+  background-color: transparent;
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem 1.5rem;
+}
+.data-card .card-title {
+  color: var(--text-primary-dark);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* --- 5. NEW "Top Strategies" List --- */
+.strategy-item {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #f1f3f5;
+}
+.strategy-item:last-child { border-bottom: none; }
+
+.strategy-item .top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.strategy-item .name {
+  font-weight: 600;
+  color: var(--text-primary-dark);
+}
+.strategy-item .percentage {
+  font-weight: 500;
+  color: var(--text-muted-light);
+}
+
+.strategy-item .progress {
+  height: 10px;
+  border-radius: 5px;
+  background-color: #e9ecef;
+}
+.strategy-item .progress-bar {
+  border-radius: 5px;
+}
+.strategy-item .progress-bar.bg-primary { background-color: var(--primary-blue); }
+.strategy-item .progress-bar.bg-warning { background-color: var(--warning-yellow); }
+
+.strategy-item .details {
+  font-size: 0.85rem;
+  color: var(--text-muted-light);
+  margin-top: 0.5rem;
+}
+
+.data-card .card-footer {
+  background-color: #f8f9fa;
+  text-align: center;
+  margin-top: auto; /* Pushes footer to the bottom */
+}

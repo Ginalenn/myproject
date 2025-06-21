@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
   <link rel="stylesheet" href="{% static 'myapp/css/tables.css' %}">
   <link rel="stylesheet" href="{% static 'myapp/css/sidebar.css' %}">  {# Our enhanced sidebar styles #}
+  <link rel="stylesheet" href="{% static 'myapp/css/dashboard.css' %}">
+
 
 </head>
 <body>
@@ -23,6 +25,8 @@
 
     <!-- 2. The Sidebar -->
     {% include 'myapp/partials/sidebar.html' %}
+
+     <div class="sidebar-overlay" id="sidebar_overlay"></div>
 
     <div class="main-content-wrapper flex-grow-1" style="margin-left: 260px;">
       
@@ -46,6 +50,10 @@
     <script src="{% static 'myapp/js/responsive.bootstrap5.js' %}"></script>
     <script src="{% static 'myapp/js/dataTables.responsive.js' %}"></script>
     <script src="{% static 'myapp/js/side.js' %}"></script> {# Our sidebar interactivity script #}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'myapp/js/dashboard.js' %}"></script> {# Create this file #}
+    <script src="{% static 'myapp/js/manage_records.js' %}"></script>
+
 
     {% block extra_js %}{% endblock %}
 
