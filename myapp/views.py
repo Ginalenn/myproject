@@ -9,6 +9,8 @@ from django.contrib import messages
 from .models import Activity, Strategy # Import all necessary models
 from .forms import ActivityForm       # Import your Django form
 
+from django.contrib.auth.decorators import login_required
+
 # ==============================================================================
 # MAIN PAGE VIEWS
 # Each view is responsible for rendering a complete page that extends base.html

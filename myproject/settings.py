@@ -137,10 +137,18 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'myapp', 'static'),
 ]
 
-# Redirect to the dashboard page after a successful login.
-# The name 'dashboard' should match the name of your dashboard URL pattern.
-LOGIN_REDIRECT_URL = 'manage_dashboard' # CHANGE 'dashboard' to your actual dashboard URL name
+# myproject/settings.py
 
-# By default, logout redirects to LOGIN_REDIRECT_URL. We configured it
-# in myapp/urls.py to redirect to the 'login' page, which is common.
+# ... other settings
+
+# The URL name where users are redirected after a successful login.
+LOGIN_REDIRECT_URL = 'manage_dashboard'
+
+# --- THIS IS THE FIX ---
+# The URL name where the login page can be found.
+# The @login_required decorator will use this value to redirect unauthorized users.
+# 'login' is the name you gave your login URL pattern in myapp/urls.py.
+LOGIN_URL = 'login'
+
+# The URL name where users are redirected after logging out.
 LOGOUT_REDIRECT_URL = 'login'
