@@ -21,7 +21,7 @@
       <a href="" class="btn btn-outline-secondary d-none d-sm-inline-flex align-items-center">
           <i class="fa-solid fa-download me-2"></i>Export Report
       </a>
-      <a href="{% url 'add_activity_form' %}" class="btn btn-primary d-flex align-items-center">
+      <a href="{% url 'myapp:add_activity_form' %}" class="btn btn-primary d-flex align-items-center">
         <i class="fa-solid fa-plus me-2"></i>New Activity
       </a>
     </div>
@@ -164,7 +164,7 @@
                 </ul>
             </div>
             <div class="card-footer bg-light text-center border-0 py-2">
-                <a href="{% url 'manage_records' %}" class="btn btn-link text-decoration-none btn-sm fw-semibold">View All Strategies</a>
+                <a href="{% url 'myapp:manage_records' %}" class="btn btn-link text-decoration-none btn-sm fw-semibold">View All Strategies</a>
             </div>
         </div>
       </div>

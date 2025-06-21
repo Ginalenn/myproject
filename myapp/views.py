@@ -41,7 +41,7 @@ def dashboard_view(request):
     }
     
     # Renders the full dashboard page, which should extend base.html
-    return render(request, 'myapp/index.html', context)
+    return render(request, 'myapp/dashboard/dashboard.html', context)
 
 
 
@@ -92,8 +92,6 @@ def add_activity_form_view(request):
     return render(request, 'myapp/forms/forms.html', context)
 
 
-
-def edit_activity_form_view(request, pk):
     """
     Handles editing an existing activity, identified by its primary key (pk).
     """
@@ -116,4 +114,42 @@ def edit_activity_form_view(request, pk):
     # Using a dedicated template for editing is good practice
     return render(request, 'myapp/forms/edit_form.html', context)
 
-# You can add other views like 'export_form_view' here if needed.
+
+
+
+def view_activity_view(request, pk):
+    """
+    Renders a read-only detail page for a single activity.
+    """
+    # get_object_or_404 is a shortcut to get an object or raise a 404 error if not found
+    activity = get_object_or_404(Activity, pk=pk)
+    context = {'activity': activity}
+    
+    # We will create this new template file in the next step
+    return render(request, 'myapp/details/view_detail.html', context)
+
+
+def edit_activity_form_view(request, pk):
+    """
+    Handles both displaying and processing the form to edit an existing activity.
+    """
+    activity_instance = get_object_or_404(Activity, pk=pk)
+    
+    if request.method == 'POST':
+        # Pass the instance to the form to update the existing object
+        form = ActivityForm(request.POST, request.FILES, instance=activity_instance)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Activity "{activity_instance.activity_title}" was updated successfully!')
+            return redirect('myapp:manage_records')
+    else:
+        # For a GET request, create a form pre-filled with the existing data
+        form = ActivityForm(instance=activity_instance)
+
+    context = {
+        'form': form,
+        'activity': activity_instance # Pass the object itself for context in the template
+    }
+    
+    # We will create this new template file in the next step
+    return render(request, 'myapp/forms/edit_form.html', context)

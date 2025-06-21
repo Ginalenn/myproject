@@ -20,21 +20,21 @@
       <li class="nav-item">
         <!-- href now uses the url tag. The active class is conditional. -->
         <a class="nav-link px-3 py-2 rounded {% if request.resolver_match.url_name == 'manage_dashboard' %}active{% endif %}" 
-           href="{% url 'manage_dashboard' %}">
+           href="{% url 'myapp:manage_dashboard' %}">
           <i class="fa-solid fa-chart-pie fa-fw me-2"></i>
           <span>Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link px-3 py-2 rounded {% if request.resolver_match.url_name == 'manage_records' %}active{% endif %}" 
-           href="{% url 'manage_records' %}">
+           href="{% url 'myapp:manage_records' %}">
           <i class="fa-solid fa-folder-open fa-fw me-2"></i>
           <span>Manage Records</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link px-3 py-2 rounded {% if request.resolver_match.url_name == 'add_activity_form' %}active{% endif %}" 
-           href="{% url 'add_activity_form' %}">
+           href="{% url 'myapp:add_activity_form' %}">
           <i class="fa-solid fa-file-pen fa-fw me-2"></i>
           <span>Add New Record</span>
         </a>
